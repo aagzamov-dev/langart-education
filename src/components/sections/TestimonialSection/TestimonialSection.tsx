@@ -4,12 +4,24 @@ import { motion } from 'motion/react';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { getAllTestimonials } from '@/data/testimonials';
 import styles from './TestimonialSection.module.scss';
 
-export default function TestimonialSection() {
+interface Testimonial {
+    id: number;
+    name: string;
+    role: string;
+    image: string;
+    title: string;
+    content: string;
+    rating: number;
+}
+
+interface TestimonialSectionProps {
+    testimonials: Testimonial[];
+}
+
+export default function TestimonialSection({ testimonials }: TestimonialSectionProps) {
     const t = useTranslations('testimonials');
-    const testimonials = getAllTestimonials();
 
     return (
         <section className={styles.testimonials}>

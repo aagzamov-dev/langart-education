@@ -1,15 +1,12 @@
-'use client';
-
-import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import CourseCard from '@/components/cards/CourseCard';
-import { getAllCourses } from '@/data/courses';
+import { getCourses } from '@/lib/api';
 import styles from './page.module.scss';
 
-export default function CoursesPage() {
-    const t = useTranslations('courses');
-    const courses = getAllCourses();
+export default async function CoursesPage() {
+    const t = await getTranslations('courses');
+    const courses = await getCourses();
 
     return (
         <>
@@ -20,17 +17,13 @@ export default function CoursesPage() {
 
             <section className={styles.courses}>
                 <div className={styles.container}>
-                    <motion.div
-                        className={styles.sectionTitle}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                    >
+                    <div className={styles.sectionTitle}>
                         <div className={styles.subTitle}>
                             <span className={styles.icon}>📚</span>
                             <h6>{t('subtitle')}</h6>
                         </div>
                         <h2>{t('findPerfect')}</h2>
-                    </motion.div>
+                    </div>
 
                     <div className={styles.grid}>
                         {courses.map((course, index) => (
