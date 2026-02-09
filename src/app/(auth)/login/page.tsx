@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState } from 'react';
-import { updateProfile } from '@/app/actions/user';
+import { login } from '@/app/actions/auth';
 import styles from './page.module.scss';
 import { useFormStatus } from 'react-dom';
 
@@ -10,34 +10,31 @@ function SubmitButton() {
 
     return (
         <button type="submit" className={styles.button} disabled={pending}>
-            {pending ? 'Updating...' : 'Update Profile'}
+            {pending ? 'Logging in...' : 'Login'}
         </button>
     );
 }
 
-export default function SettingsPage() {
-    const [state, dispatch] = useActionState(updateProfile, undefined);
+export default function LoginPage() {
+    const [errorMessage, dispatch] = useActionState(login, undefined);
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Admin Settings</h1>
-
             <div className={styles.card}>
+                <h1 className={styles.title}>Admin Login</h1>
                 <form action={dispatch} className={styles.form}>
-
                     <div className={styles.inputGroup}>
                         <label htmlFor="username">Username</label>
                         <input
                             type="text"
                             id="username"
                             name="username"
+                            required
                             className={styles.input}
-                            placeholder="Leave empty to keep current"
                         />
                     </div>
-
                     <div className={styles.inputGroup}>
-                        <label htmlFor="password">Current Password (Required)</label>
+                        <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             id="password"
@@ -46,25 +43,9 @@ export default function SettingsPage() {
                             className={styles.input}
                         />
                     </div>
-
-                    <div className={styles.inputGroup}>
-                        <label htmlFor="newPassword">New Password</label>
-                        <input
-                            type="password"
-                            id="newPassword"
-                            name="newPassword"
-                            className={styles.input}
-                            placeholder="Leave empty to keep current"
-                        />
-                    </div>
-
-                    {state?.error && (
-                        <div className={styles.error}>{state.error}</div>
+                    {errorMessage?.error && (
+                        <div className={styles.error}>{errorMessage.error}</div>
                     )}
-                    {state?.success && (
-                        <div className={styles.success}>{state.success}</div>
-                    )}
-
                     <SubmitButton />
                 </form>
             </div>
