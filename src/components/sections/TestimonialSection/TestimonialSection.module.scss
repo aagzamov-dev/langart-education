@@ -1,0 +1,130 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/responsive';
+
+.testimonials {
+  @include section-padding;
+  background: linear-gradient(135deg, #f0fbf8 0%, #e8f7f3 100%);
+}
+
+.container {
+  @include container;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+}
+
+.subTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+  
+  .icon {
+    font-size: 20px;
+  }
+  
+  h6 {
+    font-size: $fs-sm;
+    font-weight: 500;
+    color: $primary-color;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-lg;
+  
+  @include xl {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include md {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #fff;
+  padding: $spacing-lg;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  transition: $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-5px);
+  }
+}
+
+.quoteIcon {
+  font-size: 30px;
+  color: $primary-color;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: $title-color;
+  margin-bottom: $spacing-sm;
+}
+
+.content {
+  font-size: $fs-base;
+  color: $text-color;
+  line-height: 1.7;
+  margin-bottom: $spacing-md;
+}
+
+.rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: $spacing-md;
+}
+
+.starFilled {
+  color: #ffc107;
+  font-size: 16px;
+}
+
+.starEmpty {
+  color: #ddd;
+  font-size: 16px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding-top: $spacing-sm;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.authorImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.authorInfo {
+  h5 {
+    font-size: $fs-base;
+    font-weight: 600;
+    color: $title-color;
+    margin: 0 0 4px;
+  }
+  
+  p {
+    font-size: $fs-sm;
+    color: $text-color;
+    margin: 0;
+  }
+}

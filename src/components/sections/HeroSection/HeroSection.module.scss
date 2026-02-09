@@ -1,0 +1,306 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/responsive';
+
+// ============================================
+// Part 1: Main Hero with Background
+// ============================================
+.heroMain {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  padding: 150px 0 100px;
+  background: url('/images/hero/hero-bg3.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+  
+  @include md {
+    min-height: 500px;
+    padding: 120px 0 80px;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 600px;
+  z-index: 2;
+  
+  h5 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: $fs-sm;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: $spacing-md;
+  }
+  
+  h1 {
+    font-size: 60px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+    
+    span {
+      color: $primary-color;
+    }
+    
+    @include lg {
+      font-size: 48px;
+    }
+    
+    @include md {
+      font-size: 36px;
+    }
+  }
+  
+  p {
+    font-size: $fs-lg;
+    color: rgba(255, 255, 255, 0.8);
+    margin: $spacing-md 0 $spacing-lg;
+  }
+}
+
+.checkIcon {
+  color: $primary-color;
+  font-size: 14px;
+}
+
+.heroButtons {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  @include btn-primary;
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 30px;
+  font-size: $fs-base;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: $radius-full;
+  transition: $transition-normal;
+  
+  &:hover {
+    background: #fff;
+    color: $title-color;
+  }
+}
+
+// Floating shapes in hero main - positioned at edges, not over content
+.shape1, .shape2, .shape3 {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  
+  @include md {
+    display: none;
+  }
+}
+
+.shape1 {
+  bottom: 80px;
+  left: 30px;
+}
+
+.shape2 {
+  top: 150px;
+  left: 45%;
+}
+
+.shape3 {
+  bottom: 120px;
+  left: 35%;
+}
+
+// ============================================
+// Part 2: Young Learners Section
+// ============================================
+.youngLearners {
+  position: relative;
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f5fcfa 0%, #eef9f6 100%);
+  overflow: hidden;
+  
+  @include md {
+    padding: 60px 0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: $spacing-xl;
+  align-items: center;
+  
+  @include lg {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+}
+
+// Image column
+.imageCol {
+  position: relative;
+}
+
+.imageWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mainThumb {
+  position: relative;
+  z-index: 2;
+}
+
+.heroThumb {
+  border-radius: $radius-lg;
+  object-fit: cover;
+}
+
+// Floating decorations
+.floatShape1, .floatShape2, .floatShape3, .floatShape4 {
+  position: absolute;
+  z-index: 3;
+}
+
+.floatShape1 {
+  top: -20px;
+  right: 10%;
+}
+
+.floatShape2 {
+  top: 30%;
+  left: 5%;
+}
+
+.floatShape3 {
+  bottom: 20%;
+  right: 5%;
+}
+
+.floatShape4 {
+  bottom: -10px;
+  left: 20%;
+}
+
+// Expert Instructors Badge
+.autorBadge {
+  position: absolute;
+  bottom: 15%;
+  left: -20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #fff;
+  border-radius: $radius-full;
+  box-shadow: $shadow-lg;
+  z-index: 4;
+  
+  @include md {
+    left: 10px;
+  }
+}
+
+.autorThumb {
+  display: flex;
+  
+  img {
+    border-radius: 50%;
+  }
+}
+
+.autorText {
+  font-size: $fs-sm;
+  font-weight: 600;
+  color: $title-color;
+  white-space: nowrap;
+}
+
+// Content column
+.contentCol {
+  padding-left: $spacing-xl;
+  
+  @include lg {
+    padding-left: 0;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: $title-color;
+    line-height: 1.2;
+    margin: 0;
+    
+    @include md {
+      font-size: 32px;
+    }
+  }
+  
+  p {
+    font-size: $fs-lg;
+    color: $text-color;
+    margin: $spacing-md 0 $spacing-lg;
+    line-height: 1.7;
+    
+    strong {
+      color: $primary-color;
+    }
+  }
+  
+  .heroButtons {
+    @include lg {
+      justify-content: center;
+    }
+  }
+  
+  .btnPrimary {
+    background: $secondary-color;
+    
+    &:hover {
+      background: darken($secondary-color, 10%);
+    }
+  }
+}
+
+// Background shapes
+.bgShape1, .bgShape2 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.bgShape1 {
+  top: 10%;
+  right: 5%;
+  width: 150px;
+  height: 150px;
+  background: $primary-color;
+}
+
+.bgShape2 {
+  bottom: 10%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+  background: $secondary-color;
+}

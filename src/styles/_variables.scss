@@ -1,0 +1,82 @@
+// Design Tokens for LangArt Education Group
+// Based on original theme-default.css
+
+// Colors
+$primary-color: #1ec28e;
+$secondary-color: #ff853f;
+$tertiary-color: #15c1fa;
+$fourtiary-color: #a64cf9;
+
+$title-color: #1e1e1e;
+$text-color: #616161;
+$top-color: #20906A;
+
+$bg-white: #ffffff;
+$box-bg: #fdf7f3;
+$box-bg2: #f0fbf8;
+
+// Typography
+$font-heading: 'Outfit', sans-serif;
+$font-body: 'Open Sans', sans-serif;
+
+$fs-base: 16px;
+$fs-sm: 14px;
+$fs-lg: 18px;
+$fs-xl: 24px;
+$fs-2xl: 32px;
+$fs-3xl: 42px;
+$fs-4xl: 50px;
+$fs-hero: 60px;
+
+$line-height-base: 26px;
+$line-height-heading: 1.2;
+
+// Spacing
+$spacing-xs: 8px;
+$spacing-sm: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xl: 48px;
+$spacing-2xl: 64px;
+$spacing-section: 100px;
+
+// Border Radius
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-xl: 23px;
+$radius-full: 50%;
+
+// Shadows
+$shadow-sm: 0px 4px 20px rgba(0, 0, 0, 0.08);
+$shadow-md: 0px 10px 40px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0px 20px 60px rgba(0, 0, 0, 0.15);
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Container widths
+$container-max: 1320px;
+$container-padding: 15px;
+
+// Z-index layers
+$z-dropdown: 100;
+$z-sticky: 500;
+$z-modal: 1000;
+$z-tooltip: 1500;
+
+// CSS Custom Properties (for runtime theming)
+:root {
+  --primary-color: #{$primary-color};
+  --secondary-color: #{$secondary-color};
+  --tertiary-color: #{$tertiary-color};
+  --fourtiary-color: #{$fourtiary-color};
+  --title-color: #{$title-color};
+  --text-color: #{$text-color};
+  --top-color: #{$top-color};
+  --bg-white: #{$bg-white};
+  --box-bg: #{$box-bg};
+  --box-bg2: #{$box-bg2};
+}

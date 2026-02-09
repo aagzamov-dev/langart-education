@@ -1,0 +1,121 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/responsive';
+
+.breadcrumb {
+  position: relative;
+  background: linear-gradient(135deg, #f0fbf8 0%, #e8f7f3 100%);
+  padding: 120px 0 80px;
+  margin-top: 50px;
+  overflow: hidden;
+  
+  @include md {
+    padding: 100px 0 60px;
+  }
+}
+
+.container {
+  @include container;
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  font-size: $fs-4xl;
+  font-weight: 700;
+  color: $title-color;
+  margin-bottom: $spacing-sm;
+  
+  @include md {
+    font-size: $fs-2xl;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+
+.homeLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $title-color;
+  font-weight: 500;
+  transition: $transition-normal;
+  
+  svg {
+    font-size: 14px;
+  }
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  a {
+    color: $title-color;
+    font-weight: 500;
+    transition: $transition-normal;
+    
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.separator {
+  font-size: 10px;
+  color: $text-color;
+}
+
+.current {
+  color: $primary-color;
+  font-weight: 500;
+}
+
+// Decorative shapes
+.shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape1,
+.shape2 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.shape1 {
+  top: 20%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  background: $primary-color;
+}
+
+.shape2 {
+  bottom: 20%;
+  left: 10%;
+  width: 80px;
+  height: 80px;
+  background: $secondary-color;
+}

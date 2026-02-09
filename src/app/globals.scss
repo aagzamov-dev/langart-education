@@ -1,0 +1,280 @@
+// Global Styles for LangArt Education Group
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&display=swap');
+
+@import '../styles/variables';
+@import '../styles/mixins';
+@import '../styles/responsive';
+@import '../styles/animations';
+
+// CSS Reset & Base Styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-body;
+  font-size: $fs-base;
+  line-height: $line-height-base;
+  color: $text-color;
+  background-color: $bg-white;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  @include heading-style;
+}
+
+h1 {
+  font-size: $fs-4xl;
+  
+  @include lg {
+    font-size: $fs-3xl;
+  }
+  
+  @include md {
+    font-size: $fs-2xl;
+  }
+}
+
+h2 {
+  font-size: $fs-3xl;
+  
+  @include md {
+    font-size: $fs-2xl;
+  }
+}
+
+h3 {
+  font-size: 30px;
+  
+  @include md {
+    font-size: $fs-xl;
+  }
+}
+
+h4 {
+  font-size: $fs-xl;
+}
+
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: $fs-lg;
+}
+
+p {
+  @include body-text;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: $transition-normal;
+  
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+ul, ol {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+// Container
+.container {
+  @include container;
+}
+
+// Section spacing
+.section {
+  @include section-padding;
+}
+
+// Button styles
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-outline {
+  @include btn-outline;
+}
+
+// Row and Grid
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col {
+  padding: 0 15px;
+}
+
+// Generate column classes
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    flex: 0 0 #{percentage($i / 12)};
+    max-width: #{percentage($i / 12)};
+    padding: 0 15px;
+  }
+}
+
+// Responsive columns
+@include lg {
+  @for $i from 1 through 12 {
+    .col-lg-#{$i} {
+      flex: 0 0 #{percentage($i / 12)};
+      max-width: #{percentage($i / 12)};
+    }
+  }
+}
+
+@include md {
+  @for $i from 1 through 12 {
+    .col-md-#{$i} {
+      flex: 0 0 #{percentage($i / 12)};
+      max-width: #{percentage($i / 12)};
+    }
+  }
+}
+
+// Utility classes
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+// Section title styles
+.section-title {
+  margin-bottom: $spacing-xl;
+  
+  h1 {
+    margin-bottom: $spacing-sm;
+    
+    span {
+      color: $primary-color;
+    }
+  }
+}
+
+.section-sub-title {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-sm;
+  
+  h6 {
+    font-size: $fs-sm;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: $primary-color;
+    letter-spacing: 1px;
+  }
+  
+  img {
+    width: 20px;
+    height: auto;
+  }
+}
+
+// Preloader
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $bg-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+}
+
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: $primary-color;
+  color: $bg-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: $transition-normal;
+  z-index: 999;
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  &:hover {
+    background: $title-color;
+    transform: translateY(-5px);
+  }
+}

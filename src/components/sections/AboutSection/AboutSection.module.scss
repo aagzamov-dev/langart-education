@@ -1,0 +1,210 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/responsive';
+
+.about {
+  @include section-padding;
+  position: relative;
+  overflow: hidden;
+  background: url('/images/bg-pattern.png') center/cover no-repeat;
+  background-color: #fafbfc;
+}
+
+.container {
+  @include container;
+  position: relative;
+  z-index: 2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+  align-items: center;
+  
+  @include lg {
+    gap: $spacing-lg;
+  }
+  
+  @include md {
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+  }
+}
+
+// Reverse layout
+.reverse .grid {
+  direction: rtl;
+  
+  > * {
+    direction: ltr;
+  }
+  
+  @include md {
+    direction: ltr;
+  }
+}
+
+.imageCol {
+  // Image column styles
+}
+
+.imageWrapper {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: 10px;
+    bottom: 10px;
+    border: 7px solid $primary-color;
+    border-radius: 5%;
+    z-index: -1;
+  }
+}
+
+.mainImage {
+  border-radius: 5%;
+  border: 7px solid $primary-color;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.contentCol {
+  // Content column styles
+}
+
+.content {
+  max-width: 600px;
+  
+  @include md {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+.title {
+  font-size: $fs-hero;
+  line-height: 70px;
+  font-weight: 600;
+  color: $title-color;
+  margin-bottom: 0;
+  
+  &:last-of-type {
+    margin-bottom: $spacing-md;
+  }
+  
+  @include lg {
+    font-size: $fs-3xl;
+    line-height: 52px;
+  }
+  
+  @include md {
+    font-size: $fs-2xl;
+    line-height: 42px;
+  }
+}
+
+.description {
+  font-size: $fs-base;
+  color: $text-color;
+  line-height: 1.7;
+  margin-bottom: $spacing-lg;
+  
+  strong {
+    color: $title-color;
+    font-weight: 600;
+  }
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $fs-base;
+  font-weight: 500;
+  color: $title-color;
+  
+  @include md {
+    justify-content: center;
+  }
+}
+
+.featureIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: $primary-color;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.buttons {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+  
+  @include md {
+    justify-content: center;
+  }
+}
+
+.btnPrimary {
+  @include btn-primary;
+}
+
+.btnOutline {
+  @include btn-outline;
+}
+
+// Background shapes
+.shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape1,
+.shape2 {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.shape1 {
+  top: 10%;
+  left: 5%;
+  width: 200px;
+  height: 200px;
+  background: $primary-color;
+}
+
+.shape2 {
+  bottom: 10%;
+  right: 5%;
+  width: 150px;
+  height: 150px;
+  background: $secondary-color;
+}

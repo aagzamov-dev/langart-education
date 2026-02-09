@@ -1,0 +1,75 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/responsive';
+
+.card {
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+  transition: $transition-normal;
+  
+  &:hover {
+    box-shadow: $shadow-lg;
+  }
+  
+  // Color variations
+  &.color1 {
+    .content {
+      background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 10%) 100%);
+    }
+  }
+  
+  &.color2 {
+    .content {
+      background: linear-gradient(135deg, $secondary-color 0%, darken($secondary-color, 10%) 100%);
+    }
+  }
+  
+  &.color3 {
+    .content {
+      background: linear-gradient(135deg, $tertiary-color 0%, darken($tertiary-color, 10%) 100%);
+    }
+  }
+  
+  &.color4 {
+    .content {
+      background: linear-gradient(135deg, $fourtiary-color 0%, darken($fourtiary-color, 10%) 100%);
+    }
+  }
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+}
+
+.imageWrapper {
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform $transition-slow;
+  
+  .card:hover & {
+    transform: scale(1.05);
+  }
+  
+  @include md {
+    height: 240px;
+  }
+}
+
+.content {
+  padding: $spacing-md;
+  text-align: center;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}

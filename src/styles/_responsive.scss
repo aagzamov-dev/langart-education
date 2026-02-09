@@ -1,0 +1,91 @@
+// Responsive Breakpoints
+
+// Breakpoint values
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Media query mixins
+@mixin xs {
+  @media (max-width: #{$breakpoint-xs - 1}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: #{$breakpoint-sm - 1}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: #{$breakpoint-md - 1}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: #{$breakpoint-lg - 1}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (max-width: #{$breakpoint-xl - 1}) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @media (max-width: #{$breakpoint-xxl - 1}) {
+    @content;
+  }
+}
+
+// Min-width queries
+@mixin sm-up {
+  @media (min-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+@mixin md-up {
+  @media (min-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin lg-up {
+  @media (min-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin xl-up {
+  @media (min-width: #{$breakpoint-xl}) {
+    @content;
+  }
+}
+
+// Between breakpoints
+@mixin between($min, $max) {
+  @media (min-width: $min) and (max-width: #{$max - 1}) {
+    @content;
+  }
+}
+
+// Hide on specific breakpoints
+.hide-mobile {
+  @include md {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @include md-up {
+    display: none !important;
+  }
+}
