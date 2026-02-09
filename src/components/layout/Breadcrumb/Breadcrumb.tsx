@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { FaHome, FaChevronRight } from 'react-icons/fa';
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import styles from './Breadcrumb.module.scss';
 
 interface BreadcrumbProps {
@@ -14,6 +15,8 @@ interface BreadcrumbProps {
 }
 
 export default function Breadcrumb({ items, title }: BreadcrumbProps) {
+    const t = useTranslations('breadcrumb');
+
     return (
         <section className={styles.breadcrumb}>
             <div className={styles.container}>
@@ -27,7 +30,7 @@ export default function Breadcrumb({ items, title }: BreadcrumbProps) {
                     <nav className={styles.nav}>
                         <Link href="/" className={styles.homeLink}>
                             <FaHome />
-                            Home
+                            {t('home')}
                         </Link>
                         {items.map((item, index) => (
                             <span key={index} className={styles.item}>

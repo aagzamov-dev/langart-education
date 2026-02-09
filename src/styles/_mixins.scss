@@ -1,6 +1,6 @@
 // Reusable SCSS Mixins
-
-@import './variables';
+@use 'sass:math';
+@use './variables' as *;
 
 // Flexbox helpers
 @mixin flex-center {
@@ -134,7 +134,7 @@
 
 // Aspect ratio box
 @mixin aspect-ratio($width, $height) {
-  aspect-ratio: $width / $height;
+  aspect-ratio: math.div($width, $height);
   object-fit: cover;
 }
 

@@ -1,0 +1,115 @@
+{
+    "common": {
+        "enroll": "RO'YXATDAN O'TISH",
+        "findCourse": "KURS TOPISH",
+        "learnMore": "Batafsil",
+        "getStarted": "Boshlash",
+        "sendMessage": "Yuborish",
+        "viewAll": "Hammasini ko'rish",
+        "contactUs": "Bog'lanish"
+    },
+    "nav": {
+        "home": "Bosh sahifa",
+        "about": "Biz haqimizda",
+        "courses": "Kurslar",
+        "instructors": "O'qituvchilar",
+        "pricing": "Narxlar",
+        "contact": "Aloqa"
+    },
+    "topBar": {
+        "welcome": "Xush kelibsiz",
+        "tagline": "Ta'lim kuchini ochib berish!"
+    },
+    "hero": {
+        "guarantee": "100% Sifat kafolati",
+        "growLearning": "O'rganishni rivojlantir",
+        "withLangArt": "LangArt bilan",
+        "commitment": "Biz sizning muvaffaqiyatingizga intilamiz",
+        "youngLearners": "Bolalar uchun ingliz tili",
+        "brightFuture": "Yorqin kelajak",
+        "strongFoundation": "Mustahkam asos",
+        "youngLearnersDesc": "LangArt - 7-10 yoshli yosh bilimdonlar uchun ideal joy",
+        "expertInstructors": "Tajribali o'qituvchilar"
+    },
+    "about": {
+        "schoolTitle1": "Maktab uchun ingliz tili",
+        "schoolTitle2": "Sinfda ishonch shu yerdan boshlanadi",
+        "schoolDesc": "LangArt maktab ingliz tili Kembrij dasturiga asoslanib, o'quvchilarga ingliz tilini ishonch bilan o'zlashtirishga yordam beradi",
+        "examTitle1": "Imtihonlar uchun ingliz tili",
+        "examTitle2": "Har bir dars sizni maqsad balliga yaqinlashtiradi",
+        "examDesc": "LangArt imtihon ingliz tili professional o'qitish va tasdiqlangan strategiyalarni birlashtiradi",
+        "businessTitle1": "Biznes ingliz tili",
+        "businessTitle2": "Global biznesda ustunligingiz",
+        "businessDesc": "LangArt biznes ingliz tili mutaxassislarga uchrashuvlar, taqdimotlar va xalqaro muloqotda muvaffaqiyatli bo'lish uchun amaliy ko'nikmalarni beradi",
+        "innovativeLearning": "Innovatsion o'quv tizimi",
+        "worldwideIntelligent": "Xalqaro standart",
+        "ielts": "IELTS",
+        "toefl": "TOEFL",
+        "duolingo": "Duolingo",
+        "localExams": "Mahalliy imtihonlar"
+    },
+    "testimonials": {
+        "title": "Fikrlar",
+        "subtitle": "Talabalarimiz nima deydi"
+    },
+    "courses": {
+        "title": "Bizning kurslar",
+        "subtitle": "Dasturlarni o'rganing",
+        "findPerfect": "O'zingizga mos kursni toping",
+        "lessons": "dars",
+        "perLesson": "har bir dars uchun"
+    },
+    "instructors": {
+        "title": "O'qituvchilarimiz",
+        "subtitle": "Jamoa bilan tanishing",
+        "expert": "Tajribali o'qituvchilar"
+    },
+    "pricing": {
+        "title": "Narxlar",
+        "subtitle": "Qulay narxlar",
+        "choosePlan": "O'zingizga mos rejani tanlang",
+        "lessons12": "12 dars",
+        "perLesson": "Har bir dars uchun",
+        "standard": "Standart",
+        "focused": "Fokus",
+        "duo": "Duo",
+        "students": "talaba",
+        "som": "so'm"
+    },
+    "contact": {
+        "title": "Aloqa",
+        "getInTouch": "Biz bilan bog'laning",
+        "description": "Kurslar haqida savollaringiz bormi? Ro'yxatdan o'tmoqchimisiz? Formani to'ldiring yoki to'g'ridan-to'g'ri bog'laning!",
+        "phone": "Telefon",
+        "email": "Email",
+        "address": "Manzil",
+        "sendMessage": "Xabar yuborish",
+        "yourName": "Ismingiz",
+        "phoneNumber": "Telefon raqami",
+        "emailAddress": "Email manzili",
+        "selectCourse": "Kursni tanlang",
+        "selectLevel": "Darajani tanlang",
+        "yourMessage": "Xabaringiz",
+        "youngLearners": "Bolalar uchun ingliz tili",
+        "schoolEnglish": "Maktab ingliz tili",
+        "generalEnglish": "Umumiy ingliz tili",
+        "examPrep": "Imtihonga tayyorgarlik",
+        "businessEnglish": "Biznes ingliz tili",
+        "beginner": "Boshlang'ich",
+        "elementary": "Elementar",
+        "intermediate": "O'rta",
+        "upperIntermediate": "O'rtadan yuqori",
+        "advanced": "Yuqori"
+    },
+    "footer": {
+        "description": "LangArt Educational Group - ingliz tilini o'zlashtirishga intilayotganlar uchun ideal joy.",
+        "quickLinks": "Tezkor havolalar",
+        "onlinePlatform": "Onlayn platforma",
+        "copyright": "© 2025 LangArt. Barcha huquqlar himoyalangan.",
+        "madeWith": "Yaratilgan",
+        "by": "LangArt jamoasi tomonidan"
+    },
+    "breadcrumb": {
+        "home": "Bosh sahifa"
+    }
+}

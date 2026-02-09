@@ -1,19 +1,21 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import InstructorCard from '@/components/cards/InstructorCard';
 import { getAllInstructors } from '@/data/instructors';
 import styles from './page.module.scss';
 
 export default function InstructorsPage() {
+    const t = useTranslations('instructors');
     const instructors = getAllInstructors();
 
     return (
         <>
             <Breadcrumb
-                title="Our Instructors"
-                items={[{ label: 'Instructors' }]}
+                title={t('title')}
+                items={[{ label: t('title') }]}
             />
 
             <section className={styles.instructors}>
@@ -25,9 +27,9 @@ export default function InstructorsPage() {
                     >
                         <div className={styles.subTitle}>
                             <span className={styles.icon}>👨‍🏫</span>
-                            <h6>Meet Our Team</h6>
+                            <h6>{t('subtitle')}</h6>
                         </div>
-                        <h2>Expert <span>Instructors</span></h2>
+                        <h2>{t('expert')}</h2>
                     </motion.div>
 
                     <div className={styles.grid}>

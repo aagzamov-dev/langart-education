@@ -1,0 +1,115 @@
+{
+  "common": {
+    "enroll": "ENROLL",
+    "findCourse": "FIND COURSE",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "sendMessage": "Send Message",
+    "viewAll": "View All",
+    "contactUs": "Contact Us"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "courses": "Courses",
+    "instructors": "Instructors",
+    "pricing": "Pricing",
+    "contact": "Contact"
+  },
+  "topBar": {
+    "welcome": "Welcome to",
+    "tagline": "Unlocking the Power of Education!"
+  },
+  "hero": {
+    "guarantee": "100% Satisfaction Guarantee",
+    "growLearning": "Grow Your Learning",
+    "withLangArt": "With LangArt",
+    "commitment": "We are committed to delivering success",
+    "youngLearners": "Young Learners English",
+    "brightFuture": "Bright Future",
+    "strongFoundation": "Strong Foundation",
+    "youngLearnersDesc": "LangArt - the ultimate destination for young knowledge seekers aged 7-10",
+    "expertInstructors": "Expert Instructors"
+  },
+  "about": {
+    "schoolTitle1": "English For School",
+    "schoolTitle2": "Confidence In Class Starts Here",
+    "schoolDesc": "LangArt's English for School follows the Cambridge framework to help students master English with confidence",
+    "examTitle1": "English For Exam",
+    "examTitle2": "Every Lesson Moves You Closer to Your Target Score",
+    "examDesc": "LangArt's English for Exams combines professional teaching and proven strategies to help you achieve top scores in any English exam.",
+    "businessTitle1": "English For Business Learners",
+    "businessTitle2": "Your Edge in Global Business",
+    "businessDesc": "LangArt's English for Business Learners equips professionals with expert, practical English skills to succeed in meetings, presentations and international communication",
+    "innovativeLearning": "Innovative Learning System",
+    "worldwideIntelligent": "Worldwide Intelligent Learner",
+    "ielts": "IELTS",
+    "toefl": "TOEFL",
+    "duolingo": "Duolingo",
+    "localExams": "Local Exams"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What Our Students Say"
+  },
+  "courses": {
+    "title": "Our Courses",
+    "subtitle": "Explore Programs",
+    "findPerfect": "Find Your Perfect Course",
+    "lessons": "lessons",
+    "perLesson": "per lesson"
+  },
+  "instructors": {
+    "title": "Our Instructors",
+    "subtitle": "Meet Our Team",
+    "expert": "Expert Instructors"
+  },
+  "pricing": {
+    "title": "Pricing Plans",
+    "subtitle": "Affordable Plans",
+    "choosePlan": "Choose Your Perfect Plan",
+    "lessons12": "12 Lessons",
+    "perLesson": "Per Lesson",
+    "standard": "Standard",
+    "focused": "Focused",
+    "duo": "Duo",
+    "students": "students",
+    "som": "som"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "getInTouch": "Get in Touch",
+    "description": "Have questions about our courses? Want to enroll? Fill out the form or contact us directly!",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "sendMessage": "Send us a Message",
+    "yourName": "Your Name",
+    "phoneNumber": "Phone Number",
+    "emailAddress": "Email Address",
+    "selectCourse": "Select Course",
+    "selectLevel": "Select Level",
+    "yourMessage": "Your Message",
+    "youngLearners": "Young Learners English",
+    "schoolEnglish": "English for School",
+    "generalEnglish": "General English",
+    "examPrep": "Exam Preparation",
+    "businessEnglish": "Business English",
+    "beginner": "Beginner",
+    "elementary": "Elementary",
+    "intermediate": "Intermediate",
+    "upperIntermediate": "Upper Intermediate",
+    "advanced": "Advanced"
+  },
+  "footer": {
+    "description": "LangArt Educational Group is the ultimate destination for learners committed to mastering English.",
+    "quickLinks": "Quick Links",
+    "onlinePlatform": "Online Platform",
+    "copyright": "© 2025 LangArt. All Rights Reserved.",
+    "madeWith": "Made with",
+    "by": "by LangArt Team"
+  },
+  "breadcrumb": {
+    "home": "Home"
+  }
+}

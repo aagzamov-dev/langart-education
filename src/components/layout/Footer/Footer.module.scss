@@ -1,181 +1,216 @@
-@import '../../../styles/variables';
-@import '../../../styles/mixins';
-@import '../../../styles/responsive';
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/responsive' as *;
 
 .footer {
-  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  background: #111; // Deep dark background
   color: #fff;
-  padding-top: $spacing-section;
+  padding: 80px 0 0;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, $secondary-color);
+  }
 }
 
 .container {
   @include container;
 }
 
-.footerContent {
-  padding-bottom: $spacing-xl;
-}
-
-.logoSection {
-  margin-bottom: $spacing-xl;
-  text-align: center;
-}
-
-.logo {
-  display: inline-block;
-  
-  img {
-    height: 50px;
-    width: auto;
-  }
-}
-
-.footerGrid {
+.footerTop {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: $spacing-xl;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   
   @include lg {
     grid-template-columns: 1fr 1fr;
+    gap: 50px 30px;
   }
   
   @include md {
     grid-template-columns: 1fr;
-    gap: $spacing-lg;
+    gap: 40px;
+    text-align: center;
   }
 }
 
 .footerCol {
-  // Individual column styles
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  
+  h4 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    position: relative;
+    display: inline-block;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: $primary-color;
+      margin-top: 10px;
+      
+      @include md {
+        margin: 10px auto 0;
+      }
+    }
+  }
 }
 
-.colTitle {
-  font-size: 20px;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: $spacing-md;
-  position: relative;
+.footerLogo {
+  display: inline-block;
+  margin-bottom: 15px;
   
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background: $primary-color;
+  img {
+    height: 45px;
+    width: auto;
+    filter: brightness(0) invert(1); // Make logo white if it's black
   }
 }
 
 .description {
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: $spacing-md;
-  line-height: 1.7;
-}
-
-.contactInfo {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-sm;
-}
-
-.contactItem {
-  display: flex;
-  align-items: center;
-  gap: $spacing-sm;
-  color: rgba(255, 255, 255, 0.8);
-  transition: $transition-normal;
-  
-  svg {
-    color: $primary-color;
-    font-size: 18px;
-  }
-  
-  &:hover {
-    color: $primary-color;
-  }
-}
-
-.linkList {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-xs;
-}
-
-.footerLink {
-  display: flex;
-  align-items: center;
-  gap: $spacing-xs;
-  color: rgba(255, 255, 255, 0.7);
   font-size: 15px;
-  padding: 8px 0;
-  transition: $transition-normal;
-  
-  &:hover {
-    color: $primary-color;
-    padding-left: 10px;
-    
-    .linkIcon {
-      color: $primary-color;
-    }
-  }
-}
-
-.linkIcon {
-  color: $primary-color;
-  font-size: 12px;
-  transition: $transition-normal;
-}
-
-// Footer Bottom
-.footerBottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: $spacing-md 0;
-}
-
-.bottomContent {
-  @include flex-between;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 300px;
   
   @include md {
-    flex-direction: column;
-    gap: $spacing-md;
-    text-align: center;
-  }
-}
-
-.copyright {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 14px;
-  
-  a {
-    color: #fff;
-    font-weight: 500;
-    
-    &:hover {
-      color: $primary-color;
-    }
+    margin: 0 auto;
   }
 }
 
 .socialLinks {
   display: flex;
-  gap: $spacing-sm;
+  gap: 15px;
+  margin-top: 10px;
+  
+  @include md {
+    justify-content: center;
+  }
+  
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    transition: $transition-normal;
+    border: 1px solid transparent;
+    
+    &:hover {
+      background: $primary-color;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba($primary-color, 0.3);
+    }
+  }
 }
 
-.socialLink {
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 16px;
-  transition: $transition-normal;
+  flex-direction: column;
+  gap: 12px;
   
-  &:hover {
-    background: $primary-color;
-    transform: translateY(-3px);
+  li {
+    a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 15px;
+      transition: $transition-normal;
+      position: relative;
+      padding-left: 0;
+      
+      &:hover {
+        color: $primary-color;
+        padding-left: 5px;
+      }
+    }
   }
+}
+
+.contactList {
+  @extend .linkList;
+  gap: 15px;
+  
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    
+    @include md {
+      justify-content: center;
+    }
+    
+    .icon {
+      color: $primary-color;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+    
+    a {
+      color: inherit;
+      padding-left: 0 !important; // Override link hover padding
+      
+      &:hover {
+        color: #fff;
+      }
+    }
+    
+    span {
+      line-height: 1.5;
+    }
+  }
+}
+
+.footerBottom {
+  padding: 25px 0;
+  text-align: center;
+  
+  p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    
+    .heart {
+      color: #ff4757;
+      animation: heartbeat 1.5s infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }

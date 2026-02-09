@@ -1,16 +1,17 @@
-@import '../../../styles/variables';
-@import '../../../styles/mixins';
-@import '../../../styles/responsive';
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/responsive' as *;
 
 .breadcrumb {
   position: relative;
   background: linear-gradient(135deg, #f0fbf8 0%, #e8f7f3 100%);
-  padding: 120px 0 80px;
-  margin-top: 50px;
+  padding: 80px 0 60px;
+  margin-top: 110px; // Space for fixed top bar (40px) + header (70px)
   overflow: hidden;
   
   @include md {
-    padding: 100px 0 60px;
+    padding: 60px 0 40px;
+    margin-top: 70px; // Only header on mobile
   }
 }
 

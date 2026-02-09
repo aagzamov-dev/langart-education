@@ -4,37 +4,41 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { FaArrowRight } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 import styles from './AboutSection.module.scss';
 
 interface AboutSectionProps {
     variant?: 'school' | 'exam' | 'business';
 }
 
-const sectionData = {
-    school: {
-        title: ['English For School', 'Confidence In Class Starts Here'],
-        description: "LangArt's English for School follows the Cambridge framework to help students master English with confidence",
-        features: ['Innovative Learning System', 'Worldwide Intelligent Learner'],
-        image: '/images/home/school.png',
-        reverse: true,
-    },
-    exam: {
-        title: ['English For Exam', 'Every Lesson Moves You Closer to Your Target Score'],
-        description: "LangArt's English for Exams combines professional teaching and proven strategies to help you achieve top scores in any English exam.",
-        features: ['IELTS', 'TOEFL', 'Duolingo', 'Local Exams'],
-        image: '/images/home/campus-life.png',
-        reverse: false,
-    },
-    business: {
-        title: ['English For Business Learners', 'Your Edge in Global Business'],
-        description: "LangArt's English for Business Learners equips professionals with expert, practical English skills to succeed in meetings, presentations and international communication",
-        features: [],
-        image: '/images/home/colleagues.png',
-        reverse: false,
-    },
-};
-
 export default function AboutSection({ variant = 'school' }: AboutSectionProps) {
+    const t = useTranslations('about');
+    const tCommon = useTranslations('common');
+
+    const sectionData = {
+        school: {
+            title: [t('schoolTitle1'), t('schoolTitle2')],
+            description: t('schoolDesc'),
+            features: [t('innovativeLearning'), t('worldwideIntelligent')],
+            image: '/images/home/school.png',
+            reverse: true,
+        },
+        exam: {
+            title: [t('examTitle1'), t('examTitle2')],
+            description: t('examDesc'),
+            features: [t('ielts'), t('toefl'), t('duolingo'), t('localExams')],
+            image: '/images/home/campus-life.png',
+            reverse: false,
+        },
+        business: {
+            title: [t('businessTitle1'), t('businessTitle2')],
+            description: t('businessDesc'),
+            features: [],
+            image: '/images/home/colleagues.png',
+            reverse: false,
+        },
+    };
+
     const data = sectionData[variant];
 
     return (
@@ -94,11 +98,11 @@ export default function AboutSection({ variant = 'school' }: AboutSectionProps) 
 
                             <div className={styles.buttons}>
                                 <Link href="/contact" className={styles.btnPrimary}>
-                                    ENROLL
+                                    {tCommon('enroll')}
                                     <FaArrowRight />
                                 </Link>
                                 <Link href="/courses" className={styles.btnOutline}>
-                                    FIND COURSE
+                                    {tCommon('findCourse')}
                                     <FaArrowRight />
                                 </Link>
                             </div>

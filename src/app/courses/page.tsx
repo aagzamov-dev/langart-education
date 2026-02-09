@@ -1,19 +1,21 @@
 'use client';
 
 import { motion } from 'motion/react';
+import { useTranslations } from 'next-intl';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import CourseCard from '@/components/cards/CourseCard';
 import { getAllCourses } from '@/data/courses';
 import styles from './page.module.scss';
 
 export default function CoursesPage() {
+    const t = useTranslations('courses');
     const courses = getAllCourses();
 
     return (
         <>
             <Breadcrumb
-                title="Our Courses"
-                items={[{ label: 'Courses' }]}
+                title={t('title')}
+                items={[{ label: t('title') }]}
             />
 
             <section className={styles.courses}>
@@ -25,9 +27,9 @@ export default function CoursesPage() {
                     >
                         <div className={styles.subTitle}>
                             <span className={styles.icon}>📚</span>
-                            <h6>Explore Programs</h6>
+                            <h6>{t('subtitle')}</h6>
                         </div>
-                        <h2>Find Your <span>Perfect Course</span></h2>
+                        <h2>{t('findPerfect')}</h2>
                     </motion.div>
 
                     <div className={styles.grid}>

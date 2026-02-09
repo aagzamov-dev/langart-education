@@ -1,33 +1,31 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaFacebookF, FaInstagram, FaTelegram, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaTelegram, FaInstagram, FaFacebookF, FaHeart } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 import { contactInfo } from '@/data/contact';
 import styles from './Footer.module.scss';
 
-const footerLinks = {
-    platform: [
-        { href: '/about', label: 'About Us' },
-        { href: '/courses', label: 'Our Courses' },
-        { href: '/instructors', label: 'Instructors' },
-        { href: '/contact', label: 'Enroll Now' },
-    ],
-    quickLinks: [
-        { href: '/contact', label: 'Contact Us' },
-        { href: '/pricing', label: 'Pricing' },
-    ],
-};
-
 export default function Footer() {
-    const currentYear = new Date().getFullYear();
+    const t = useTranslations('footer');
+    const tNav = useTranslations('nav');
+
+    const quickLinks = [
+        { href: '/about', label: tNav('about') },
+        { href: '/courses', label: tNav('courses') },
+        { href: '/instructors', label: tNav('instructors') },
+        { href: '/pricing', label: tNav('pricing') },
+        { href: '/contact', label: tNav('contact') },
+    ];
 
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
-                {/* Main Footer Content */}
-                <div className={styles.footerContent}>
-                    {/* Logo Section */}
-                    <div className={styles.logoSection}>
-                        <Link href="/" className={styles.logo}>
+                <div className={styles.footerTop}>
+                    {/* Logo & Description */}
+                    <div className={styles.footerCol}>
+                        <Link href="/" className={styles.footerLogo}>
                             <Image
                                 src="/images/footer-logo.png"
                                 alt="LangArt"
@@ -35,96 +33,74 @@ export default function Footer() {
                                 height={50}
                             />
                         </Link>
-                    </div>
-
-                    {/* Footer Grid */}
-                    <div className={styles.footerGrid}>
-                        {/* Get in Touch */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.colTitle}>Get in Touch</h4>
-                            <p className={styles.description}>
-                                LangArt - the ultimate destination for learners. We are committed to transforming education without standards.
-                            </p>
-                            <div className={styles.contactInfo}>
-                                <a href={`tel:${contactInfo.phoneNumber.replace(/\s/g, '')}`} className={styles.contactItem}>
-                                    <FaPhone />
-                                    <span>{contactInfo.phoneNumber}</span>
-                                </a>
-                                <a href={`mailto:${contactInfo.email}`} className={styles.contactItem}>
-                                    <FaEnvelope />
-                                    <span>{contactInfo.email}</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        {/* Online Platform */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.colTitle}>Online Platform</h4>
-                            <ul className={styles.linkList}>
-                                {footerLinks.platform.map((link) => (
-                                    <li key={link.href}>
-                                        <Link href={link.href} className={styles.footerLink}>
-                                            <span className={styles.linkIcon}>→</span>
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Quick Links */}
-                        <div className={styles.footerCol}>
-                            <h4 className={styles.colTitle}>Quick Links</h4>
-                            <ul className={styles.linkList}>
-                                {footerLinks.quickLinks.map((link) => (
-                                    <li key={link.href}>
-                                        <Link href={link.href} className={styles.footerLink}>
-                                            <span className={styles.linkIcon}>→</span>
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Footer Bottom */}
-                <div className={styles.footerBottom}>
-                    <div className={styles.bottomContent}>
-                        <p className={styles.copyright}>
-                            © {currentYear} <Link href="/">LangArt</Link>. All rights reserved.
+                        <p className={styles.description}>
+                            {t('description')}
                         </p>
                         <div className={styles.socialLinks}>
-                            <a
-                                href={contactInfo.socialLinks.facebook}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.socialLink}
-                                aria-label="Facebook"
-                            >
-                                <FaFacebookF />
+                            <a href={contactInfo.socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                                <FaTelegram />
                             </a>
-                            <a
-                                href={contactInfo.socialLinks.instagram}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.socialLink}
-                                aria-label="Instagram"
-                            >
+                            <a href={contactInfo.socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                                 <FaInstagram />
                             </a>
-                            <a
-                                href={contactInfo.socialLinks.telegram}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={styles.socialLink}
-                                aria-label="Telegram"
-                            >
-                                <FaTelegram />
+                            <a href={contactInfo.socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                                <FaFacebookF />
                             </a>
                         </div>
                     </div>
+
+                    {/* Quick Links */}
+                    <div className={styles.footerCol}>
+                        <h4>{t('quickLinks')}</h4>
+                        <ul className={styles.linkList}>
+                            {quickLinks.map((link) => (
+                                <li key={link.href}>
+                                    <Link href={link.href}>{link.label}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Online Platform */}
+                    <div className={styles.footerCol}>
+                        <h4>{t('onlinePlatform')}</h4>
+                        <ul className={styles.linkList}>
+                            <li><a href="https://edu.langart.uz" target="_blank" rel="noopener noreferrer">LangArt LMS</a></li>
+                            <li><Link href="/pricing">{tNav('pricing')}</Link></li>
+                        </ul>
+                    </div>
+
+                    {/* Contact Info */}
+                    <div className={styles.footerCol}>
+                        <h4>{tNav('contact')}</h4>
+                        <ul className={styles.contactList}>
+                            <li>
+                                <FaPhone className={styles.icon} />
+                                <a href={`tel:${contactInfo.phoneNumber.replace(/\s/g, '')}`}>
+                                    {contactInfo.phoneNumber}
+                                </a>
+                            </li>
+                            <li>
+                                <FaEnvelope className={styles.icon} />
+                                <a href={`mailto:${contactInfo.email}`}>
+                                    {contactInfo.email}
+                                </a>
+                            </li>
+                            <li>
+                                <FaMapMarkerAlt className={styles.icon} />
+                                <span>{contactInfo.locations[0]}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {/* Copyright */}
+            <div className={styles.footerBottom}>
+                <div className={styles.container}>
+                    <p>
+                        {t('copyright')} {t('madeWith')} <FaHeart className={styles.heart} /> {t('by')}
+                    </p>
                 </div>
             </div>
         </footer>

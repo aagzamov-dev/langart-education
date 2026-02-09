@@ -3,11 +3,16 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaTelegram, FaInstagram, FaFacebookF } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { contactInfo } from '@/data/contact';
 import styles from './page.module.scss';
 
 export default function ContactPage() {
+    const t = useTranslations('contact');
+    const tNav = useTranslations('nav');
+    const tCommon = useTranslations('common');
+
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -31,8 +36,8 @@ export default function ContactPage() {
     return (
         <>
             <Breadcrumb
-                title="Contact Us"
-                items={[{ label: 'Contact' }]}
+                title={t('title')}
+                items={[{ label: tNav('contact') }]}
             />
 
             <section className={styles.contact}>
@@ -45,9 +50,9 @@ export default function ContactPage() {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
                         >
-                            <h3>Get in Touch</h3>
+                            <h3>{t('getInTouch')}</h3>
                             <p className={styles.description}>
-                                Have questions about our courses? Want to enroll? Fill out the form or contact us directly!
+                                {t('description')}
                             </p>
 
                             <div className={styles.contactItems}>
@@ -56,7 +61,7 @@ export default function ContactPage() {
                                         <FaPhone />
                                     </span>
                                     <div>
-                                        <h6>Phone</h6>
+                                        <h6>{t('phone')}</h6>
                                         <p>{contactInfo.phoneNumber}</p>
                                     </div>
                                 </a>
@@ -66,7 +71,7 @@ export default function ContactPage() {
                                         <FaEnvelope />
                                     </span>
                                     <div>
-                                        <h6>Email</h6>
+                                        <h6>{t('email')}</h6>
                                         <p>{contactInfo.email}</p>
                                     </div>
                                 </a>
@@ -76,7 +81,7 @@ export default function ContactPage() {
                                         <FaMapMarkerAlt />
                                     </span>
                                     <div>
-                                        <h6>Address</h6>
+                                        <h6>{t('address')}</h6>
                                         <p>{contactInfo.locations[0]}</p>
                                     </div>
                                 </div>
@@ -118,14 +123,14 @@ export default function ContactPage() {
                             transition={{ delay: 0.3 }}
                         >
                             <form onSubmit={handleSubmit} className={styles.form}>
-                                <h3>Send us a Message</h3>
+                                <h3>{t('sendMessage')}</h3>
 
                                 <div className={styles.formRow}>
                                     <div className={styles.formGroup}>
                                         <input
                                             type="text"
                                             name="name"
-                                            placeholder="Your Name *"
+                                            placeholder={`${t('yourName')} *`}
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
@@ -135,7 +140,7 @@ export default function ContactPage() {
                                         <input
                                             type="tel"
                                             name="phone"
-                                            placeholder="Phone Number *"
+                                            placeholder={`${t('phoneNumber')} *`}
                                             value={formData.phone}
                                             onChange={handleChange}
                                             required
@@ -147,7 +152,7 @@ export default function ContactPage() {
                                     <input
                                         type="email"
                                         name="email"
-                                        placeholder="Email Address"
+                                        placeholder={t('emailAddress')}
                                         value={formData.email}
                                         onChange={handleChange}
                                     />
@@ -156,22 +161,22 @@ export default function ContactPage() {
                                 <div className={styles.formRow}>
                                     <div className={styles.formGroup}>
                                         <select name="course" value={formData.course} onChange={handleChange}>
-                                            <option value="">Select Course</option>
-                                            <option value="young-learners">Young Learners English</option>
-                                            <option value="school">English for School</option>
-                                            <option value="general">General English</option>
-                                            <option value="exam">Exam Preparation</option>
-                                            <option value="business">Business English</option>
+                                            <option value="">{t('selectCourse')}</option>
+                                            <option value="young-learners">{t('youngLearners')}</option>
+                                            <option value="school">{t('schoolEnglish')}</option>
+                                            <option value="general">{t('generalEnglish')}</option>
+                                            <option value="exam">{t('examPrep')}</option>
+                                            <option value="business">{t('businessEnglish')}</option>
                                         </select>
                                     </div>
                                     <div className={styles.formGroup}>
                                         <select name="level" value={formData.level} onChange={handleChange}>
-                                            <option value="">Select Level</option>
-                                            <option value="beginner">Beginner</option>
-                                            <option value="elementary">Elementary</option>
-                                            <option value="intermediate">Intermediate</option>
-                                            <option value="upper-intermediate">Upper Intermediate</option>
-                                            <option value="advanced">Advanced</option>
+                                            <option value="">{t('selectLevel')}</option>
+                                            <option value="beginner">{t('beginner')}</option>
+                                            <option value="elementary">{t('elementary')}</option>
+                                            <option value="intermediate">{t('intermediate')}</option>
+                                            <option value="upper-intermediate">{t('upperIntermediate')}</option>
+                                            <option value="advanced">{t('advanced')}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -179,7 +184,7 @@ export default function ContactPage() {
                                 <div className={styles.formGroup}>
                                     <textarea
                                         name="message"
-                                        placeholder="Your Message"
+                                        placeholder={t('yourMessage')}
                                         rows={5}
                                         value={formData.message}
                                         onChange={handleChange}
@@ -187,7 +192,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <button type="submit" className={styles.submitBtn}>
-                                    Send Message
+                                    {tCommon('sendMessage')}
                                 </button>
                             </form>
                         </motion.div>

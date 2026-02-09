@@ -1,0 +1,115 @@
+{
+    "common": {
+        "enroll": "ЗАПИСАТЬСЯ",
+        "findCourse": "НАЙТИ КУРС",
+        "learnMore": "Узнать больше",
+        "getStarted": "Начать",
+        "sendMessage": "Отправить",
+        "viewAll": "Смотреть все",
+        "contactUs": "Связаться"
+    },
+    "nav": {
+        "home": "Главная",
+        "about": "О нас",
+        "courses": "Курсы",
+        "instructors": "Преподаватели",
+        "pricing": "Цены",
+        "contact": "Контакты"
+    },
+    "topBar": {
+        "welcome": "Добро пожаловать в",
+        "tagline": "Раскрываем силу образования!"
+    },
+    "hero": {
+        "guarantee": "100% Гарантия качества",
+        "growLearning": "Развивай обучение",
+        "withLangArt": "С LangArt",
+        "commitment": "Мы стремимся к вашему успеху",
+        "youngLearners": "Английский для детей",
+        "brightFuture": "Светлое будущее",
+        "strongFoundation": "Крепкая основа",
+        "youngLearnersDesc": "LangArt - идеальное место для юных знатоков в возрасте 7-10 лет",
+        "expertInstructors": "Опытные преподаватели"
+    },
+    "about": {
+        "schoolTitle1": "Английский для школы",
+        "schoolTitle2": "Уверенность в классе начинается здесь",
+        "schoolDesc": "Английский для школы от LangArt следует Кембриджской программе, помогая ученикам уверенно овладеть английским",
+        "examTitle1": "Английский для экзаменов",
+        "examTitle2": "Каждый урок приближает вас к целевому баллу",
+        "examDesc": "Английский для экзаменов от LangArt сочетает профессиональное преподавание и проверенные стратегии для достижения высоких баллов",
+        "businessTitle1": "Бизнес английский",
+        "businessTitle2": "Ваше преимущество в глобальном бизнесе",
+        "businessDesc": "Бизнес английский от LangArt дает профессионалам практические навыки для успешных встреч, презентаций и международного общения",
+        "innovativeLearning": "Инновационная система обучения",
+        "worldwideIntelligent": "Международный стандарт",
+        "ielts": "IELTS",
+        "toefl": "TOEFL",
+        "duolingo": "Duolingo",
+        "localExams": "Местные экзамены"
+    },
+    "testimonials": {
+        "title": "Отзывы",
+        "subtitle": "Что говорят наши студенты"
+    },
+    "courses": {
+        "title": "Наши курсы",
+        "subtitle": "Изучите программы",
+        "findPerfect": "Найдите идеальный курс",
+        "lessons": "уроков",
+        "perLesson": "за урок"
+    },
+    "instructors": {
+        "title": "Наши преподаватели",
+        "subtitle": "Познакомьтесь с командой",
+        "expert": "Опытные преподаватели"
+    },
+    "pricing": {
+        "title": "Тарифы",
+        "subtitle": "Доступные цены",
+        "choosePlan": "Выберите подходящий план",
+        "lessons12": "12 уроков",
+        "perLesson": "За урок",
+        "standard": "Стандарт",
+        "focused": "Фокус",
+        "duo": "Дуо",
+        "students": "студентов",
+        "som": "сум"
+    },
+    "contact": {
+        "title": "Контакты",
+        "getInTouch": "Свяжитесь с нами",
+        "description": "Есть вопросы о курсах? Хотите записаться? Заполните форму или свяжитесь с нами напрямую!",
+        "phone": "Телефон",
+        "email": "Email",
+        "address": "Адрес",
+        "sendMessage": "Отправить сообщение",
+        "yourName": "Ваше имя",
+        "phoneNumber": "Номер телефона",
+        "emailAddress": "Email адрес",
+        "selectCourse": "Выберите курс",
+        "selectLevel": "Выберите уровень",
+        "yourMessage": "Ваше сообщение",
+        "youngLearners": "Английский для детей",
+        "schoolEnglish": "Английский для школы",
+        "generalEnglish": "Общий английский",
+        "examPrep": "Подготовка к экзаменам",
+        "businessEnglish": "Бизнес английский",
+        "beginner": "Начальный",
+        "elementary": "Элементарный",
+        "intermediate": "Средний",
+        "upperIntermediate": "Выше среднего",
+        "advanced": "Продвинутый"
+    },
+    "footer": {
+        "description": "LangArt Educational Group - идеальное место для тех, кто стремится овладеть английским языком.",
+        "quickLinks": "Быстрые ссылки",
+        "onlinePlatform": "Онлайн платформа",
+        "copyright": "© 2025 LangArt. Все права защищены.",
+        "madeWith": "Сделано с",
+        "by": "командой LangArt"
+    },
+    "breadcrumb": {
+        "home": "Главная"
+    }
+}

@@ -4,9 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { FaArrowRight, FaCheck } from 'react-icons/fa';
+import { useTranslations } from 'next-intl';
 import styles from './HeroSection.module.scss';
 
 export default function HeroSection() {
+    const t = useTranslations('hero');
+    const tCommon = useTranslations('common');
+
     return (
         <>
             {/* Part 1: Main Hero with Background */}
@@ -19,7 +23,7 @@ export default function HeroSection() {
                             transition={{ delay: 0.1 }}
                         >
                             <FaCheck className={styles.checkIcon} />
-                            100% Satisfaction Guarantee
+                            {t('guarantee')}
                         </motion.h5>
 
                         <motion.h1
@@ -27,7 +31,7 @@ export default function HeroSection() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
                         >
-                            Grow Your Learning
+                            {t('growLearning')}
                         </motion.h1>
 
                         <motion.h1
@@ -35,7 +39,7 @@ export default function HeroSection() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                         >
-                            With <span>LangArt</span>
+                            {t('withLangArt').split('LangArt')[0]}<span>LangArt</span>
                         </motion.h1>
 
                         <motion.p
@@ -43,7 +47,7 @@ export default function HeroSection() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
                         >
-                            We are committed to delivering success
+                            {t('commitment')}
                         </motion.p>
 
                         <motion.div
@@ -53,11 +57,11 @@ export default function HeroSection() {
                             transition={{ delay: 0.5 }}
                         >
                             <Link href="/contact" className={styles.btnPrimary}>
-                                ENROLL
+                                {tCommon('enroll')}
                                 <FaArrowRight />
                             </Link>
                             <Link href="/courses" className={styles.btnOutline}>
-                                FIND COURSE
+                                {tCommon('findCourse')}
                                 <FaArrowRight />
                             </Link>
                         </motion.div>
@@ -163,7 +167,7 @@ export default function HeroSection() {
                                             height={35}
                                         />
                                     </div>
-                                    <span className={styles.autorText}>Expert Instructors</span>
+                                    <span className={styles.autorText}>{t('expertInstructors')}</span>
                                 </motion.div>
                             </div>
                         </div>
@@ -176,20 +180,20 @@ export default function HeroSection() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
                         >
-                            <h1>Young Learners English</h1>
-                            <h1>Bright Future</h1>
-                            <h1>Strong Foundation</h1>
+                            <h1>{t('youngLearners')}</h1>
+                            <h1>{t('brightFuture')}</h1>
+                            <h1>{t('strongFoundation')}</h1>
 
                             <p>
-                                <strong>LangArt</strong> - the ultimate destination for young knowledge seekers aged 7-10
+                                <strong>LangArt</strong> - {t('youngLearnersDesc').replace('LangArt - ', '')}
                             </p>
 
                             <div className={styles.heroButtons}>
                                 <Link href="/contact" className={styles.btnPrimary}>
-                                    📚 ENROLL
+                                    📚 {tCommon('enroll')}
                                 </Link>
                                 <Link href="/courses" className={styles.btnOutline}>
-                                    FIND COURSE
+                                    {tCommon('findCourse')}
                                     <FaArrowRight />
                                 </Link>
                             </div>

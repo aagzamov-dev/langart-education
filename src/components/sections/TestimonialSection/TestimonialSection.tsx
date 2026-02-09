@@ -3,10 +3,12 @@
 import { motion } from 'motion/react';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { getAllTestimonials } from '@/data/testimonials';
 import styles from './TestimonialSection.module.scss';
 
 export default function TestimonialSection() {
+    const t = useTranslations('testimonials');
     const testimonials = getAllTestimonials();
 
     return (
@@ -20,9 +22,9 @@ export default function TestimonialSection() {
                 >
                     <div className={styles.subTitle}>
                         <span className={styles.icon}>⭐</span>
-                        <h6>Testimonials</h6>
+                        <h6>{t('title')}</h6>
                     </div>
-                    <h2>What Our Students Say</h2>
+                    <h2>{t('subtitle')}</h2>
                 </motion.div>
 
                 <div className={styles.grid}>
