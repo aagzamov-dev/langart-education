@@ -132,7 +132,7 @@ export default function Header() {
                             <div className={styles.mobileMenuHeader}>
                                 <Link href="/" className={styles.mobileLogo} onClick={toggleMobileMenu}>
                                     <Image
-                                        src="/images/footer-logo.png"
+                                        src="/images/logo.png"
                                         alt="LangArt"
                                         width={120}
                                         height={40}

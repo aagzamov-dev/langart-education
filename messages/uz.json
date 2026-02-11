@@ -111,5 +111,10 @@
     },
     "breadcrumb": {
         "home": "Bosh sahifa"
+    },
+    "seo": {
+        "title": "LangArt Educational Group - Ingliz tili, IT, Biznes va AI kurslari",
+        "description": "LangArt Educational Group ingliz tili, IT, biznes va AI rivojlantirish bo'yicha eng yaxshi kurslarni taklif etadi. Toshkentdagi tajribali o'qituvchilar bilan yangi bilimlarni o'zlashtiring.",
+        "keywords": "ingliz tilini o'rganish, IT kurslari, biznes ta'limi, AI rivojlantirish, dasturlash, til maktabi, IELTS tayyorlov, TOEFL, Toshkent, ingliz tili ta'limi"
     }
 }

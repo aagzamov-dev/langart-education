@@ -111,5 +111,10 @@
   },
   "breadcrumb": {
     "home": "Home"
+  },
+  "seo": {
+    "title": "LangArt Educational Group - English, IT, Business & AI Learning",
+    "description": "LangArt Educational Group offers premier courses in English, IT, Business, and AI development. Join us to master new skills with expert instructors in Tashkent.",
+    "keywords": "English learning, IT courses, Business learning, AI development, programming, language school, IELTS preparation, TOEFL, Tashkent, English education"
   }
 }

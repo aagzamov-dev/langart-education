@@ -1,25 +1,36 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import './globals.scss';
 
-export const metadata: Metadata = {
-  title: {
-    default: 'LangArt Educational Group',
-    template: '%s | LangArt',
-  },
-  description: 'LangArt Educational Group - the ultimate destination for learners committed to mastering the English language. Offering immersive, dynamic, and learner-centered programs.',
-  keywords: ['English learning', 'language school', 'IELTS preparation', 'TOEFL', 'business English', 'Tashkent'],
-  authors: [{ name: 'LangArt Educational Group' }],
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://langart.uz',
-    siteName: 'LangArt Educational Group',
-    title: 'LangArt Educational Group',
-    description: 'Unlock the Power of Education with LangArt',
-  },
-};
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'seo' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords').split(',').map((k) => k.trim()),
+    authors: [{ name: 'LangArt Educational Group' }],
+    manifest: '/manifest.json',
+    appleWebApp: {
+      title: 'LangArt',
+      statusBarStyle: 'default',
+    },
+    openGraph: {
+      type: 'website',
+      locale: locale === 'ru' ? 'ru_RU' : locale === 'uz' ? 'uz_UZ' : 'en_US',
+      url: 'https://langart.uz',
+      siteName: 'LangArt Educational Group',
+      title: t('title'),
+      description: t('description'),
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
