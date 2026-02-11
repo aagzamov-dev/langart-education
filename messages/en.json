@@ -105,9 +105,12 @@
     "description": "LangArt Educational Group is the ultimate destination for learners committed to mastering English.",
     "quickLinks": "Quick Links",
     "onlinePlatform": "Online Platform",
+    "platform": "Online Platform",
+    "login": "Login",
     "copyright": "© 2025 LangArt. All Rights Reserved.",
     "madeWith": "Made with",
-    "by": "by LangArt Team"
+    "by": "by LangArt Team",
+    "rights": "All rights reserved"
   },
   "breadcrumb": {
     "home": "Home"

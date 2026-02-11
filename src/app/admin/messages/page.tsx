@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FaEye, FaEyeSlash, FaTrash, FaCheck, FaTimes, FaSearch, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaEye, FaTrash, FaCheck, FaTimes, FaSearch, FaPhone, FaEnvelope, FaEnvelopeOpen } from 'react-icons/fa';
 import { TableSkeleton } from '@/components/ui/Loading/TableSkeleton';
 
 interface Submission {
@@ -43,8 +43,9 @@ export default function MessagesPage() {
         }
     };
 
-    const toggleReadStatus = async (id: number, currentStatus: boolean, e: React.MouseEvent) => {
-        e.stopPropagation();
+    const toggleReadStatus = async (id: number, currentStatus: boolean, e?: React.MouseEvent) => {
+        if (e) e.stopPropagation();
+
         // Optimistic update
         setSubmissions(prev => prev.map(s => s.id === id ? { ...s, isRead: !currentStatus } : s));
         if (selectedMessage?.id === id) {
@@ -64,8 +65,8 @@ export default function MessagesPage() {
         }
     };
 
-    const deleteSubmission = async (id: number, e: React.MouseEvent) => {
-        e.stopPropagation();
+    const deleteSubmission = async (id: number, e?: React.MouseEvent) => {
+        if (e) e.stopPropagation();
         if (!confirm('Are you sure you want to delete this message?')) return;
 
         // Optimistic update
@@ -132,7 +133,7 @@ export default function MessagesPage() {
 
             <div className="contentCard">
                 {isLoading ? (
-                    <TableSkeleton rows={8} columns={5} />
+                    <TableSkeleton rows={8} columns={6} />
                 ) : (
                     <div className="tableResponsive">
                         <table className="dataTable">
@@ -185,11 +186,21 @@ export default function MessagesPage() {
                                             <td>
                                                 <div className="actions">
                                                     <button
+                                                        className="actionBtn primary"
+                                                        title="View Details"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedMessage(submission);
+                                                        }}
+                                                    >
+                                                        <FaEye />
+                                                    </button>
+                                                    <button
                                                         className="actionBtn"
-                                                        title={submission.isRead ? "Mark as unread" : "Mark as read"}
+                                                        title={submission.isRead ? "Mark as Unread" : "Mark as Read"}
                                                         onClick={(e) => toggleReadStatus(submission.id, submission.isRead, e)}
                                                     >
-                                                        {submission.isRead ? <FaEyeSlash /> : <FaEye />}
+                                                        {submission.isRead ? <FaEnvelopeOpen /> : <FaEnvelope />}
                                                     </button>
                                                     <button
                                                         className="actionBtn delete"
@@ -266,7 +277,7 @@ export default function MessagesPage() {
                                 <div className="detailSection">
                                     <label>Message</label>
                                     <div className="messageBox">
-                                        {selectedMessage.message || <em className="text-gray-400">No message content</em>}
+                                        {selectedMessage.message || <em className="text-muted">No message content</em>}
                                     </div>
                                 </div>
 
@@ -278,14 +289,14 @@ export default function MessagesPage() {
                             <div className="modalFooter">
                                 <button
                                     className={`btn ${selectedMessage.isRead ? 'btn-outline' : 'btn-primary'}`}
-                                    onClick={(e) => toggleReadStatus(selectedMessage.id, selectedMessage.isRead, e)}
+                                    onClick={() => toggleReadStatus(selectedMessage.id, selectedMessage.isRead)}
                                 >
                                     {selectedMessage.isRead ? 'Mark as Unread' : 'Mark as Read'}
                                 </button>
                                 <button
                                     className="btn btn-danger"
-                                    onClick={(e) => {
-                                        deleteSubmission(selectedMessage.id, e);
+                                    onClick={() => {
+                                        deleteSubmission(selectedMessage.id);
                                         setSelectedMessage(null);
                                     }}
                                 >
@@ -298,65 +309,75 @@ export default function MessagesPage() {
             </AnimatePresence>
 
             <style jsx>{`
-                .adminPage { padding: 24px; max-width: 1400px; margin: 0 auto; }
+                .adminPage { padding: 24px; max-width: 1400px; margin: 0 auto; color: var(--admin-text); }
                 .pageHeader { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
-                .subtitle { color: #666; display: flex; align-items: center; gap: 8px; }
-                .badge { background: #ff4d4f; color: white; px-2 py-0.5 rounded-full text-xs font-bold; padding: 2px 8px; border-radius: 12px; }
+                .subtitle { color: var(--admin-text-muted); display: flex; align-items: center; gap: 8px; }
+                .badge { background: var(--admin-danger); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
                 
                 .toolbar { display: flex; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 16px; }
                 .filters { display: flex; gap: 8px; }
-                .filterBtn { padding: 6px 16px; border-radius: 6px; border: 1px solid #ddd; background: white; cursor: pointer; transition: all 0.2s; }
-                .filterBtn.active { background: #1ec28e; color: white; border-color: #1ec28e; }
+                .filterBtn { padding: 6px 16px; border-radius: 6px; border: 1px solid var(--admin-border); background: var(--admin-bg-secondary); color: var(--admin-text-muted); cursor: pointer; transition: all 0.2s; }
+                .filterBtn.active { background: var(--admin-primary); color: white; border-color: var(--admin-primary); }
                 
                 .searchBox { position: relative; width: 300px; }
-                .searchIcon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; }
-                .searchBox input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid #ddd; border-radius: 6px; }
+                .searchIcon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--admin-text-muted); }
+                .searchBox input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid var(--admin-border); border-radius: 6px; background: var(--admin-bg-secondary); color: var(--admin-text); }
+                .searchBox input:focus { border-color: var(--admin-primary); outline: none; }
                 
-                .contentCard { background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow: hidden; }
+                .contentCard { background: var(--admin-bg-secondary); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid var(--admin-border); }
                 .tableResponsive { overflow-x: auto; }
                 .dataTable { width: 100%; border-collapse: collapse; }
-                .dataTable th { background: #f9f9f9; padding: 16px; text-align: left; font-weight: 600; color: #444; border-bottom: 1px solid #eee; }
-                .dataTable td { padding: 16px; border-bottom: 1px solid #eee; vertical-align: middle; }
-                .dataTable tr:hover { background: #f8f9fa; cursor: pointer; }
-                .dataTable tr.selected { background: #f0fbf8; }
-                .dataTable tr.unread td { font-weight: 500; color: #000; background: #fffbf6; }
+                .dataTable th { background: var(--admin-bg-tertiary); padding: 16px; text-align: left; font-weight: 600; color: var(--admin-text-muted); border-bottom: 1px solid var(--admin-border); }
+                .dataTable td { padding: 16px; border-bottom: 1px solid var(--admin-border); vertical-align: middle; color: var(--admin-text); }
+                .dataTable tr:hover { background: var(--admin-bg-tertiary); cursor: pointer; }
+                .dataTable tr.selected { background: rgba(99, 102, 241, 0.1); }
+                .dataTable tr.unread td { font-weight: 500; color: white; background: rgba(99, 102, 241, 0.05); }
                 
                 .statusIndicator { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
-                .statusIndicator.read { background: #e6f7ff; color: #1890ff; }
-                .statusIndicator.unread { background: #fff1f0; color: #ff4d4f; }
+                .statusIndicator.read { background: rgba(34, 197, 94, 0.1); color: var(--admin-success); }
+                .statusIndicator.unread { background: rgba(239, 68, 68, 0.1); color: var(--admin-danger); }
                 
                 .contactDetails { display: flex; flex-direction: column; }
-                .subtext { font-size: 12px; color: #888; }
+                .subtext { font-size: 12px; color: var(--admin-text-muted); }
                 
                 .interestDetails { display: flex; gap: 6px; flex-wrap: wrap; }
-                .tag { background: #f6ffed; border: 1px solid #b7eb8f; color: #389e0d; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
-                .tag.outline { background: white; border-style: dashed; }
+                .tag { background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.2); color: var(--admin-success); padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+                .tag.outline { background: transparent; border-style: dashed; }
                 .tag.large { font-size: 13px; padding: 4px 10px; }
                 
-                .actions { display: flex; gap: 8px; opacity: 0.5; transition: opacity 0.2s; }
+                .actions { display: flex; gap: 8px; opacity: 0.7; transition: opacity 0.2s; }
                 .dataTable tr:hover .actions { opacity: 1; }
-                .actionBtn { padding: 6px; border-radius: 4px; border: 1px solid #ddd; background: white; cursor: pointer; color: #666; }
-                .actionBtn:hover { border-color: #1ec28e; color: #1ec28e; }
-                .actionBtn.delete:hover { border-color: #ff4d4f; color: #ff4d4f; }
+                .actionBtn { padding: 6px; border-radius: 4px; border: 1px solid var(--admin-border); background: var(--admin-bg-tertiary); cursor: pointer; color: var(--admin-text-muted); display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; }
+                .actionBtn:hover { border-color: var(--admin-primary); color: var(--admin-primary); }
+                .actionBtn.primary { color: var(--admin-primary); border-color: var(--admin-primary); }
+                .actionBtn.delete:hover { border-color: var(--admin-danger); color: var(--admin-danger); }
                 
-                .modalBackdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 100; }
-                .modalPanel { position: fixed; top: 0; right: 0; bottom: 0; width: 400px; max-width: 90vw; background: white; padding: 0; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 101; display: flex; flex-direction: column; }
+                .modalBackdrop { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; backdrop-filter: blur(2px); }
+                .modalPanel { position: fixed; top: 0; right: 0; bottom: 0; width: 450px; max-width: 90vw; background: var(--admin-bg-secondary); padding: 0; box-shadow: -4px 0 20px rgba(0,0,0,0.3); z-index: 101; display: flex; flex-direction: column; border-left: 1px solid var(--admin-border); }
                 
-                .modalHeader { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
-                .modalContent { padding: 24px; flex: 1; overflow-y: auto; }
-                .modalFooter { padding: 20px; border-top: 1px solid #eee; display: flex; gap: 12px; justify-content: flex-end; background: #fafafa; }
+                .modalHeader { padding: 20px; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center; color: var(--admin-text); }
+                .modalContent { padding: 24px; flex: 1; overflow-y: auto; color: var(--admin-text); }
+                .modalFooter { padding: 20px; border-top: 1px solid var(--admin-border); display: flex; gap: 12px; justify-content: flex-end; background: var(--admin-bg-tertiary); }
                 
                 .detailSection { margin-bottom: 24px; }
-                .detailSection label { display: block; font-size: 12px; text-transform: uppercase; color: #999; margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; }
-                .messageBox { background: #f9f9f9; padding: 16px; border-radius: 8px; border: 1px solid #eee; white-space: pre-wrap; line-height: 1.6; }
+                .detailSection label { display: block; font-size: 12px; text-transform: uppercase; color: var(--admin-text-muted); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; }
+                .messageBox { background: var(--admin-bg); padding: 16px; border-radius: 8px; border: 1px solid var(--admin-border); white-space: pre-wrap; line-height: 1.6; color: var(--admin-text); }
                 
-                .closeBtn { font-size: 20px; color: #999; cursor: pointer; background: none; border: none; }
+                .closeBtn { font-size: 20px; color: var(--admin-text-muted); cursor: pointer; background: none; border: none; }
+                .closeBtn:hover { color: var(--admin-text); }
                 
                 .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer; }
-                .btn-sm { padding: 6px 12px; border-radius: 4px; border: 1px solid #ddd; text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; color: #555; }
-                .btn-primary { background: #1ec28e; color: white; }
-                .btn-outline { background: white; border: 1px solid #ddd; }
-                .btn-danger { background: #fff1f0; color: #ff4d4f; border: 1px solid #ffccc7; }
+                .btn-sm { padding: 6px 12px; border-radius: 4px; border: 1px solid var(--admin-border); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; color: var(--admin-text); background: var(--admin-bg-tertiary); }
+                .btn-sm:hover { background: var(--admin-border); }
+                .btn-primary { background: var(--admin-primary); color: white; }
+                .btn-outline { background: transparent; border: 1px solid var(--admin-border); color: var(--admin-text); }
+                .btn-outline:hover { border-color: var(--admin-text); }
+                .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--admin-danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+                .btn-danger:hover { background: rgba(239, 68, 68, 0.2); }
+                
+                .emptyState { text-align: center; color: var(--admin-text-muted); padding: 40px; }
+                .text-muted { color: var(--admin-text-muted); }
+                .text-gray-400 { color: #9ca3af; }
                 
                 .font-medium { font-weight: 500; }
                 .font-bold { font-weight: 700; }

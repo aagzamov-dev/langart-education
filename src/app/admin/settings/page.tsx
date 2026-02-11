@@ -1,15 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaSave, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebook, FaInstagram, FaTelegram } from 'react-icons/fa';
+import { FaSave, FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebook, FaInstagram, FaTelegram, FaLock } from 'react-icons/fa';
 import { useToast } from '@/components/ui/Toast/ToastContext';
+import { changePassword } from '@/app/actions/admin';
 
 export default function SettingsPage() {
     const { showToast } = useToast();
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [isPasswordSaving, setIsPasswordSaving] = useState(false);
 
-    // Fallback/Initial state
+    // Config state
     const [config, setConfig] = useState({
         phoneNumber: '',
         email: '',
@@ -18,6 +20,13 @@ export default function SettingsPage() {
         facebook: '',
         instagram: '',
         telegram: '',
+    });
+
+    // Password state
+    const [passwordData, setPasswordData] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
     });
 
     useEffect(() => {
@@ -89,6 +98,40 @@ export default function SettingsPage() {
             showToast('Failed to save settings', 'error');
         } finally {
             setIsSaving(false);
+        }
+    };
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
+    };
+
+    const handlePasswordSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (passwordData.newPassword !== passwordData.confirmPassword) {
+            showToast('New passwords do not match', 'error');
+            return;
+        }
+
+        setIsPasswordSaving(true);
+        const formData = new FormData();
+        formData.append('currentPassword', passwordData.currentPassword);
+        formData.append('newPassword', passwordData.newPassword);
+        formData.append('confirmPassword', passwordData.confirmPassword);
+
+        try {
+            const result = await changePassword(null, formData);
+            if (result?.error) {
+                showToast(result.error, 'error');
+            } else {
+                showToast('Password changed successfully', 'success');
+                setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+            }
+        } catch (error) {
+            console.error(error);
+            showToast('Failed to change password', 'error');
+        } finally {
+            setIsPasswordSaving(false);
         }
     };
 
@@ -220,50 +263,120 @@ export default function SettingsPage() {
                             placeholder="https://facebook.com/..."
                         />
                     </div>
-                </div>
 
-                <div className="formActions">
-                    <button type="submit" className="saveBtn" disabled={isSaving}>
-                        {isSaving ? (
-                            <>
-                                <span className="spinner"></span> Saving...
-                            </>
-                        ) : (
-                            <>
-                                <FaSave /> Save Changes
-                            </>
-                        )}
-                    </button>
+                    <div className="formActions">
+                        <button type="submit" className="saveBtn" disabled={isSaving}>
+                            {isSaving ? (
+                                <>
+                                    <span className="spinner"></span> Saving...
+                                </>
+                            ) : (
+                                <>
+                                    <FaSave /> Save Changes
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form onSubmit={handlePasswordSubmit} className="settingsForm">
+                <div className="sectionCard">
+                    <h3>Change Password</h3>
+
+                    <div className="formGroup">
+                        <label>
+                            <FaLock className="icon" /> Current Password
+                        </label>
+                        <input
+                            type="password"
+                            name="currentPassword"
+                            value={passwordData.currentPassword}
+                            onChange={handlePasswordChange}
+                            required
+                            placeholder="Current Password"
+                        />
+                    </div>
+
+                    <div className="formRow">
+                        <div className="formGroup">
+                            <label>
+                                <FaLock className="icon" /> New Password
+                            </label>
+                            <input
+                                type="password"
+                                name="newPassword"
+                                value={passwordData.newPassword}
+                                onChange={handlePasswordChange}
+                                required
+                                placeholder="New Password"
+                            />
+                        </div>
+
+                        <div className="formGroup">
+                            <label>
+                                <FaLock className="icon" /> Confirm Password
+                            </label>
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                value={passwordData.confirmPassword}
+                                onChange={handlePasswordChange}
+                                required
+                                placeholder="Confirm New Password"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="formActions">
+                        <button type="submit" className="saveBtn" disabled={isPasswordSaving}>
+                            {isPasswordSaving ? (
+                                <>
+                                    <span className="spinner"></span> Updating...
+                                </>
+                            ) : (
+                                <>
+                                    <FaSave /> Update Password
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </form>
 
             <style jsx>{`
-                .adminPage { padding: 24px; max-width: 800px; margin: 0 auto; }
+                .adminPage { padding: 24px; max-width: 800px; margin: 0 auto; color: var(--admin-text); }
                 .pageHeader { margin-bottom: 32px; }
-                .subtitle { color: #666; }
+                .subtitle { color: var(--admin-text-muted); }
                 
-                .sectionCard { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 24px; }
-                .sectionCard h3 { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #eee; font-size: 18px; color: #333; }
+                .sectionCard { background: var(--admin-bg-secondary); padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-bottom: 24px; border: 1px solid var(--admin-border); }
+                .sectionCard h3 { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--admin-border); font-size: 18px; color: var(--admin-text); }
                 
                 .formGroup { margin-bottom: 20px; }
-                .formGroup label { display: block; margin-bottom: 8px; font-weight: 500; color: #555; display: flex; align-items: center; gap: 8px; }
-                .icon { color: #1ec28e; }
+                .formGroup label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--admin-text-muted); display: flex; align-items: center; gap: 8px; }
+                .icon { color: var(--admin-primary); }
                 
-                input[type="text"], input[type="email"] { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; transition: border 0.2s; }
-                input:focus { border-color: #1ec28e; outline: none; }
+                input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 10px 12px; border: 1px solid var(--admin-border); border-radius: 6px; font-size: 15px; transition: border 0.2s; background: var(--admin-bg); color: var(--admin-text); }
+                input:focus { border-color: var(--admin-primary); outline: none; }
                 
                 .locationInput { display: flex; gap: 10px; margin-bottom: 10px; }
-                .removeBtn { padding: 8px 12px; background: #fff1f0; color: #ff4d4f; border: 1px solid #ffccc7; border-radius: 6px; cursor: pointer; }
-                .addBtn { background: none; border: 1px dashed #1ec28e; color: #1ec28e; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; width: 100%; }
-                .addBtn:hover { background: #f0fbf8; }
+                .removeBtn { padding: 8px 12px; background: rgba(239, 68, 68, 0.1); color: var(--admin-danger); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 6px; cursor: pointer; }
+                .addBtn { background: none; border: 1px dashed var(--admin-primary); color: var(--admin-primary); padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; width: 100%; }
+                .addBtn:hover { background: rgba(99, 102, 241, 0.05); }
                 
-                .formActions { display: flex; justify-content: flex-end; position: sticky; bottom: 24px; }
-                .saveBtn { background: #1ec28e; color: white; padding: 12px 32px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(30, 194, 142, 0.3); transition: transform 0.2s; }
-                .saveBtn:hover { transform: translateY(-2px); }
+                .formActions { display: flex; justify-content: flex-end; }
+                .saveBtn { background: var(--admin-primary); color: white; padding: 12px 32px; border-radius: 8px; border: none; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); transition: transform 0.2s; }
+                .saveBtn:hover { transform: translateY(-2px); background: var(--admin-primary-hover); }
                 .saveBtn:disabled { opacity: 0.7; transform: none; cursor: not-allowed; }
+                
+                .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
                 
                 .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: white; animation: spin 1s linear infinite; }
                 @keyframes spin { to { transform: rotate(360deg); } }
+                
+                @media (max-width: 600px) {
+                    .formRow { grid-template-columns: 1fr; gap: 0; }
+                }
             `}</style>
         </div>
     );

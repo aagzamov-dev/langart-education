@@ -105,9 +105,12 @@
         "description": "LangArt Educational Group - идеальное место для тех, кто стремится овладеть английским языком.",
         "quickLinks": "Быстрые ссылки",
         "onlinePlatform": "Онлайн платформа",
+        "platform": "Онлайн платформа",
+        "login": "Вход",
         "copyright": "© 2025 LangArt. Все права защищены.",
         "madeWith": "Сделано с",
-        "by": "командой LangArt"
+        "by": "командой LangArt",
+        "rights": "Все права защищены"
     },
     "breadcrumb": {
         "home": "Главная"

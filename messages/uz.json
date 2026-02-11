@@ -105,9 +105,12 @@
         "description": "LangArt Educational Group - ingliz tilini o'zlashtirishga intilayotganlar uchun ideal joy.",
         "quickLinks": "Tezkor havolalar",
         "onlinePlatform": "Onlayn platforma",
+        "platform": "Onlayn platforma",
+        "login": "Kirish",
         "copyright": "© 2025 LangArt. Barcha huquqlar himoyalangan.",
         "madeWith": "Yaratilgan",
-        "by": "LangArt jamoasi tomonidan"
+        "by": "LangArt jamoasi tomonidan",
+        "rights": "Barcha huquqlar himoyalangan"
     },
     "breadcrumb": {
         "home": "Bosh sahifa"
