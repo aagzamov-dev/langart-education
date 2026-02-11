@@ -1,17 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaTelegram, FaInstagram, FaFacebookF } from 'react-icons/fa';
 import { useTranslations } from 'next-intl';
 import Breadcrumb from '@/components/layout/Breadcrumb';
-import { contactInfo } from '@/data/contact';
+// import { contactInfo } from '@/data/contact'; // Keeping static as fallback/initial
 import styles from './page.module.scss';
+import { useToast } from '@/components/ui/Toast/ToastContext';
+import { useSiteConfig } from '@/context/SiteConfigContext';
+
+// Basic email validation
+const isValidEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
 
 export default function ContactPage() {
     const t = useTranslations('contact');
     const tNav = useTranslations('nav');
     const tCommon = useTranslations('common');
+    const { showToast } = useToast();
+    const config = useSiteConfig();
 
     const [formData, setFormData] = useState({
         name: '',
@@ -22,15 +31,57 @@ export default function ContactPage() {
         message: '',
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    // State for dynamic contact info could go here if we fetch it on client side
+    // For now, using static import as placeholder or if we switch to Context for SiteConfig
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        // TODO: Add form submission logic
-        alert('Thank you for your message! We will contact you soon.');
+
+        if (!formData.name || !formData.phone) {
+            showToast('Name and phone are required', 'error');
+            return;
+        }
+
+        if (formData.email && !isValidEmail(formData.email)) {
+            showToast('Please enter a valid email address', 'error');
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit');
+            }
+
+            showToast('Thank you for your message! We will contact you soon.', 'success');
+            setFormData({
+                name: '',
+                phone: '',
+                email: '',
+                course: '',
+                level: '',
+                message: '',
+            });
+        } catch (error) {
+            console.error('Submission error:', error);
+            showToast('Failed to send message. Please try again.', 'error');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -56,62 +107,70 @@ export default function ContactPage() {
                             </p>
 
                             <div className={styles.contactItems}>
-                                <a href={`tel:${contactInfo.phoneNumber.replace(/\s/g, '')}`} className={styles.contactItem}>
+                                <a href={`tel:${config.phoneNumber.replace(/\s/g, '')}`} className={styles.contactItem}>
                                     <span className={styles.iconBox}>
                                         <FaPhone />
                                     </span>
                                     <div>
                                         <h6>{t('phone')}</h6>
-                                        <p>{contactInfo.phoneNumber}</p>
+                                        <p>{config.phoneNumber}</p>
                                     </div>
                                 </a>
 
-                                <a href={`mailto:${contactInfo.email}`} className={styles.contactItem}>
+                                <a href={`mailto:${config.email}`} className={styles.contactItem}>
                                     <span className={styles.iconBox}>
                                         <FaEnvelope />
                                     </span>
                                     <div>
                                         <h6>{t('email')}</h6>
-                                        <p>{contactInfo.email}</p>
+                                        <p>{config.email}</p>
                                     </div>
                                 </a>
 
-                                <div className={styles.contactItem}>
-                                    <span className={styles.iconBox}>
-                                        <FaMapMarkerAlt />
-                                    </span>
-                                    <div>
-                                        <h6>{t('address')}</h6>
-                                        <p>{contactInfo.locations[0]}</p>
+                                {config.locations.length > 0 && (
+                                    <div className={styles.contactItem}>
+                                        <span className={styles.iconBox}>
+                                            <FaMapMarkerAlt />
+                                        </span>
+                                        <div>
+                                            <h6>{t('address')}</h6>
+                                            <p>{config.locations[0]}</p>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
 
                             <div className={styles.socialLinks}>
-                                <a
-                                    href={contactInfo.socialLinks.telegram}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.socialLink}
-                                >
-                                    <FaTelegram />
-                                </a>
-                                <a
-                                    href={contactInfo.socialLinks.instagram}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.socialLink}
-                                >
-                                    <FaInstagram />
-                                </a>
-                                <a
-                                    href={contactInfo.socialLinks.facebook}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={styles.socialLink}
-                                >
-                                    <FaFacebookF />
-                                </a>
+                                {config.telegram && (
+                                    <a
+                                        href={config.telegram}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.socialLink}
+                                    >
+                                        <FaTelegram />
+                                    </a>
+                                )}
+                                {config.instagram && (
+                                    <a
+                                        href={config.instagram}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.socialLink}
+                                    >
+                                        <FaInstagram />
+                                    </a>
+                                )}
+                                {config.facebook && (
+                                    <a
+                                        href={config.facebook}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className={styles.socialLink}
+                                    >
+                                        <FaFacebookF />
+                                    </a>
+                                )}
                             </div>
                         </motion.div>
 
@@ -134,6 +193,7 @@ export default function ContactPage() {
                                             value={formData.name}
                                             onChange={handleChange}
                                             required
+                                            disabled={isSubmitting}
                                         />
                                     </div>
                                     <div className={styles.formGroup}>
@@ -144,6 +204,7 @@ export default function ContactPage() {
                                             value={formData.phone}
                                             onChange={handleChange}
                                             required
+                                            disabled={isSubmitting}
                                         />
                                     </div>
                                 </div>
@@ -155,12 +216,13 @@ export default function ContactPage() {
                                         placeholder={t('emailAddress')}
                                         value={formData.email}
                                         onChange={handleChange}
+                                        disabled={isSubmitting}
                                     />
                                 </div>
 
                                 <div className={styles.formRow}>
                                     <div className={styles.formGroup}>
-                                        <select name="course" value={formData.course} onChange={handleChange}>
+                                        <select name="course" value={formData.course} onChange={handleChange} disabled={isSubmitting}>
                                             <option value="">{t('selectCourse')}</option>
                                             <option value="young-learners">{t('youngLearners')}</option>
                                             <option value="school">{t('schoolEnglish')}</option>
@@ -170,7 +232,7 @@ export default function ContactPage() {
                                         </select>
                                     </div>
                                     <div className={styles.formGroup}>
-                                        <select name="level" value={formData.level} onChange={handleChange}>
+                                        <select name="level" value={formData.level} onChange={handleChange} disabled={isSubmitting}>
                                             <option value="">{t('selectLevel')}</option>
                                             <option value="beginner">{t('beginner')}</option>
                                             <option value="elementary">{t('elementary')}</option>
@@ -188,11 +250,12 @@ export default function ContactPage() {
                                         rows={5}
                                         value={formData.message}
                                         onChange={handleChange}
+                                        disabled={isSubmitting}
                                     />
                                 </div>
 
-                                <button type="submit" className={styles.submitBtn}>
-                                    {tCommon('sendMessage')}
+                                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                                    {isSubmitting ? 'Sending...' : tCommon('sendMessage')}
                                 </button>
                             </form>
                         </motion.div>

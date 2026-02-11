@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FaHome, FaBook, FaUsers, FaStar, FaDollarSign, FaCog } from 'react-icons/fa';
+import { FaHome, FaBook, FaUsers, FaStar, FaDollarSign, FaCog, FaEnvelope } from 'react-icons/fa';
 import './admin.css';
 
 const navItems = [
     { href: '/admin', icon: FaHome, label: 'Dashboard' },
+    { href: '/admin/messages', icon: FaEnvelope, label: 'Messages' },
     { href: '/admin/courses', icon: FaBook, label: 'Courses' },
     { href: '/admin/instructors', icon: FaUsers, label: 'Instructors' },
     { href: '/admin/testimonials', icon: FaStar, label: 'Testimonials' },

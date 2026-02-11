@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
+import { ToastProvider } from '@/components/ui/Toast/ToastContext';
+import { SiteConfigProvider } from '@/context/SiteConfigContext';
+// import { prisma } from '@/lib/prisma';
 import './globals.scss';
 
 export async function generateMetadata({
@@ -40,11 +43,42 @@ export default async function RootLayout({
   const locale = await getLocale();
   const messages = await getMessages();
 
+  // Fetch site config directly from DB (Server Component)
+  // We use upsert to ensure it exists
+  // const siteConfig = await prisma.siteConfig.upsert({
+  //   where: { id: 1 },
+  //   update: {},
+  //   create: {
+  //     phoneNumber: '+998 90 123 45 67',
+  //     email: 'info@langart.uz',
+  //     locations: ['Tashkent, Uzbekistan'],
+  //     workingHours: '09:00 - 18:00',
+  //     facebook: '',
+  //     instagram: '',
+  //     telegram: '',
+  //   },
+  // });
+
+  // Transform to match interface if needed, or pass directly if matches
+  const config = {
+    phoneNumber: '+998 90 123 45 67', // siteConfig.phoneNumber,
+    email: 'info@langart.uz', // siteConfig.email,
+    locations: ['Tashkent, Uzbekistan'], // siteConfig.locations,
+    workingHours: '09:00 - 18:00', // siteConfig.workingHours,
+    facebook: '', // siteConfig.facebook,
+    instagram: '', // siteConfig.instagram,
+    telegram: '', // siteConfig.telegram,
+  };
+
   return (
     <html lang={locale}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <SiteConfigProvider config={config}>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </SiteConfigProvider>
         </NextIntlClientProvider>
       </body>
     </html>
