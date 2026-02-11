@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id               Int      @id @default(autoincrement())
+  slug             String   @unique
+  title            String
+  shortTag         String
+  image            String
+  price            Int
+  price2           Int
+  price3           Int
+  dailyPrice       Int
+  dailyPrice2      Int
+  dailyPrice3      Int
+  duration         Int
+  lessonDuration   Int
+  breaks           Int
+  studentsInGroup  Int
+  studentsInGroup2 Int
+  studentsInGroup3 Int
+  certificates     String
+  ages             String
+  rating           Float    @default(5)
+  overview         String   @db.Text
+  whatYouWillLearn String[]
+  reviews          Review[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  name      String
+  userImage String
+  rating    Int
+  review    String   @db.Text
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
+model Instructor {
+  id         Int      @id @default(autoincrement())
+  slug       String   @unique
+  name       String
+  image      String
+  experience Int
+  students   Int
+  about      String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  image     String
+  title     String
+  content   String   @db.Text
+  rating    Int      @default(5)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PricingPlan {
+  id                Int      @id @default(autoincrement())
+  title             String
+  icon              String
+  ages              String
+  features          String[]
+  standardMonthly   Int
+  standardPerLesson Int
+  standardStudents  String
+  focusedMonthly    Int
+  focusedPerLesson  Int
+  focusedStudents   String
+  duoMonthly        Int
+  duoPerLesson      Int
+  duoStudents       String
+  order             Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model SiteConfig {
+  id           Int      @id @default(1)
+  phoneNumber  String
+  email        String
+  locations    String[]
+  workingHours String
+  facebook     String
+  instagram    String
+  telegram     String
+  updatedAt    DateTime @updatedAt
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

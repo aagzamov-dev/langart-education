@@ -1,15 +1,14 @@
-'use client';
-
-import { motion } from 'motion/react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import InstructorCard from '@/components/cards/InstructorCard';
-import { getAllInstructors } from '@/data/instructors';
+import { getInstructors } from '@/lib/api';
 import styles from './page.module.scss';
 
-export default function InstructorsPage() {
-    const t = useTranslations('instructors');
-    const instructors = getAllInstructors();
+export const revalidate = 86400; // 24 hours
+
+export default async function InstructorsPage() {
+    const t = await getTranslations('instructors');
+    const instructors = await getInstructors();
 
     return (
         <>
@@ -20,17 +19,13 @@ export default function InstructorsPage() {
 
             <section className={styles.instructors}>
                 <div className={styles.container}>
-                    <motion.div
-                        className={styles.sectionTitle}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                    >
+                    <div className={styles.sectionTitle}>
                         <div className={styles.subTitle}>
                             <span className={styles.icon}>👨‍🏫</span>
                             <h6>{t('subtitle')}</h6>
                         </div>
                         <h2>{t('expert')}</h2>
-                    </motion.div>
+                    </div>
 
                     <div className={styles.grid}>
                         {instructors.map((instructor, index) => (

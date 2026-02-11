@@ -1,6 +1,6 @@
-@use '../../styles/variables' as *;
-@use '../../styles/mixins' as *;
-@use '../../styles/responsive' as *;
+@use '../../../styles/variables' as *;
+@use '../../../styles/mixins' as *;
+@use '../../../styles/responsive' as *;
 
 .contact {
   @include section-padding;
@@ -106,9 +106,6 @@
 }
 
 // Form Column
-.formCol {
-  // Form column styles
-}
 
 .form {
   background: #fff;

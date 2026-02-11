@@ -35,3 +35,20 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # langart-education
+
+
+
+
+
+# 1. Install Prisma
+npm install prisma @prisma/client
+
+# 2. Create .env file with DATABASE_URL from Neon
+
+# 3. Initialize database
+npx prisma generate
+npx prisma db push
+npx prisma db seed
+
+# 4. Run dev server
+npm run dev

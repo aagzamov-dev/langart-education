@@ -1,9 +1,14 @@
 import HeroSection from '@/components/sections/HeroSection';
 import AboutSection from '@/components/sections/AboutSection';
 import TestimonialSection from '@/components/sections/TestimonialSection';
+import { getTestimonials } from '@/lib/api';
 import styles from './page.module.scss';
 
-export default function Home() {
+export const revalidate = 86400; // 24 hours
+
+export default async function Home() {
+  const testimonials = await getTestimonials();
+
   return (
     <div className={styles.home}>
       {/* Hero Section */}
@@ -19,7 +24,7 @@ export default function Home() {
       <AboutSection variant="business" />
 
       {/* Testimonials Section */}
-      <TestimonialSection />
+      <TestimonialSection testimonials={testimonials} />
     </div>
   );
 }
