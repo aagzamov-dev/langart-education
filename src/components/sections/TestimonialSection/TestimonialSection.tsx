@@ -9,11 +9,11 @@ import { LocalizedContent } from '@/types/admin';
 
 interface Testimonial {
     id: number;
-    name: LocalizedContent | string;
-    role: LocalizedContent | string;
+    name: any;
+    role: any;
     image: string;
-    title: LocalizedContent | string;
-    content: LocalizedContent | string;
+    title: any;
+    content: any;
     rating: number;
 }
 
