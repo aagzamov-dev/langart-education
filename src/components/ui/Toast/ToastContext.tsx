@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FaCheckCircle, FaExclamationCircle, FaInfoCircle, FaTimes } from 'react-icons/fa';
+import './Toast.css';
 
 type ToastType = 'success' | 'error' | 'info';
 
@@ -69,95 +70,6 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
                     ))}
                 </AnimatePresence>
             </div>
-
-            <style jsx global>{`
-        .toast-container {
-          position: fixed;
-          bottom: 24px;
-          right: 24px;
-          z-index: 9999;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-          pointer-events: none;
-        }
-
-        .toast {
-          background: white;
-          border-radius: 8px;
-          padding: 16px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          min-width: 300px;
-          max-width: 400px;
-          pointer-events: auto;
-          overflow: hidden;
-          position: relative;
-        }
-
-        .toast::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 0;
-          width: 4px;
-        }
-
-        .toast-success::before {
-          background-color: #1ec28e;
-        }
-
-        .toast-error::before {
-          background-color: #ff4d4f;
-        }
-
-        .toast-info::before {
-          background-color: #15c1fa;
-        }
-
-        .toast-icon {
-          font-size: 20px;
-          display: flex;
-          align-items: center;
-        }
-
-        .toast-success .toast-icon {
-          color: #1ec28e;
-        }
-
-        .toast-error .toast-icon {
-          color: #ff4d4f;
-        }
-
-        .toast-info .toast-icon {
-          color: #15c1fa;
-        }
-
-        .toast-message {
-          flex: 1;
-          font-size: 14px;
-          font-weight: 500;
-          color: #333;
-        }
-
-        .toast-close {
-          background: none;
-          border: none;
-          color: #999;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          padding: 4px;
-          transition: color 0.2s;
-        }
-
-        .toast-close:hover {
-          color: #333;
-        }
-      `}</style>
         </ToastContext.Provider>
     );
 };

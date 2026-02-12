@@ -3,23 +3,38 @@ import prisma from './prisma';
 
 // Courses - No cache (server-side rendered)
 export async function getCourses() {
-    return prisma.course.findMany({
-        include: { reviews: true },
-        orderBy: { id: 'asc' }
-    });
+    try {
+        return await prisma.course.findMany({
+            include: { reviews: true },
+            orderBy: { id: 'asc' }
+        });
+    } catch (error) {
+        console.error('Failed to fetch courses:', error);
+        return [];
+    }
 }
 
 export async function getCourseBySlug(slug: string) {
-    return prisma.course.findUnique({
-        where: { slug },
-        include: { reviews: true }
-    });
+    try {
+        return await prisma.course.findUnique({
+            where: { slug },
+            include: { reviews: true }
+        });
+    } catch (error) {
+        console.error(`Failed to fetch course by slug ${slug}:`, error);
+        return null;
+    }
 }
 
 // Instructors - Cached for 24 hours
 export const getInstructors = unstable_cache(
     async () => {
-        return prisma.instructor.findMany({ orderBy: { id: 'asc' } });
+        try {
+            return await prisma.instructor.findMany({ orderBy: { id: 'asc' } });
+        } catch (error) {
+            console.error('Failed to fetch instructors:', error);
+            return [];
+        }
     },
     ['instructors'],
     { revalidate: 86400 }
@@ -27,7 +42,12 @@ export const getInstructors = unstable_cache(
 
 export const getInstructorBySlug = unstable_cache(
     async (slug: string) => {
-        return prisma.instructor.findUnique({ where: { slug } });
+        try {
+            return await prisma.instructor.findUnique({ where: { slug } });
+        } catch (error) {
+            console.error(`Failed to fetch instructor by slug ${slug}:`, error);
+            return null;
+        }
     },
     ['instructor'],
     { revalidate: 86400 }
@@ -36,7 +56,12 @@ export const getInstructorBySlug = unstable_cache(
 // Testimonials - Cached for 24 hours
 export const getTestimonials = unstable_cache(
     async () => {
-        return prisma.testimonial.findMany({ orderBy: { id: 'asc' } });
+        try {
+            return await prisma.testimonial.findMany({ orderBy: { id: 'asc' } });
+        } catch (error) {
+            console.error('Failed to fetch testimonials:', error);
+            return [];
+        }
     },
     ['testimonials'],
     { revalidate: 86400 }
@@ -45,7 +70,12 @@ export const getTestimonials = unstable_cache(
 // Pricing Plans - Cached for 24 hours
 export const getPricingPlans = unstable_cache(
     async () => {
-        return prisma.pricingPlan.findMany({ orderBy: { order: 'asc' } });
+        try {
+            return await prisma.pricingPlan.findMany({ orderBy: { order: 'asc' } });
+        } catch (error) {
+            console.error('Failed to fetch pricing plans:', error);
+            return [];
+        }
     },
     ['pricing-plans'],
     { revalidate: 86400 }
@@ -54,7 +84,12 @@ export const getPricingPlans = unstable_cache(
 // Site Config - Cached for 24 hours
 export const getSiteConfig = unstable_cache(
     async () => {
-        return prisma.siteConfig.findFirst();
+        try {
+            return await prisma.siteConfig.findFirst();
+        } catch (error) {
+            console.error('Failed to fetch site config:', error);
+            return null;
+        }
     },
     ['site-config'],
     { revalidate: 86400 }
@@ -62,12 +97,17 @@ export const getSiteConfig = unstable_cache(
 
 // Stats for Admin Dashboard
 export async function getStats() {
-    const [courses, instructors, testimonials, pricingPlans] = await Promise.all([
-        prisma.course.count(),
-        prisma.instructor.count(),
-        prisma.testimonial.count(),
-        prisma.pricingPlan.count()
-    ]);
+    try {
+        const [courses, instructors, testimonials, pricingPlans] = await Promise.all([
+            prisma.course.count(),
+            prisma.instructor.count(),
+            prisma.testimonial.count(),
+            prisma.pricingPlan.count()
+        ]);
 
-    return { courses, instructors, testimonials, pricingPlans };
+        return { courses, instructors, testimonials, pricingPlans };
+    } catch (error) {
+        console.error('Failed to fetch stats:', error);
+        return { courses: 0, instructors: 0, testimonials: 0, pricingPlans: 0 };
+    }
 }

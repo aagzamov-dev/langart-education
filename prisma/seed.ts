@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
+const createLocalized = (text: string) => ({ en: text, ru: text, uz: text });
+const createLocalizedArray = (texts: string[]) => ({ en: texts, ru: texts, uz: texts });
+
 async function main() {
   console.log('🌱 Seeding database...');
 
@@ -31,8 +34,8 @@ async function main() {
     prisma.course.create({
       data: {
         slug: 'young-learners-english',
-        title: 'Young Learners English',
-        shortTag: 'Ages 7-10',
+        title: createLocalized('Young Learners English'),
+        shortTag: createLocalized('Ages 7-10'),
         image: '/images/courses/young-learners.png',
         price: 590000,
         price2: 690000,
@@ -47,16 +50,16 @@ async function main() {
         studentsInGroup2: 6,
         studentsInGroup3: 2,
         certificates: 'Cambridge YLE Certificate',
-        ages: '7-10',
+        ages: createLocalized('7-10'),
         rating: 5,
-        overview: 'LangArt - the ultimate destination for young knowledge seekers aged 7-10. Our Young Learners English program follows the Cambridge framework to help students master English with confidence.',
-        whatYouWillLearn: [
+        overview: createLocalized('LangArt - the ultimate destination for young knowledge seekers aged 7-10. Our Young Learners English program follows the Cambridge framework to help students master English with confidence.'),
+        whatYouWillLearn: createLocalizedArray([
           'Build strong vocabulary foundation',
           'Develop reading and writing skills',
           'Practice speaking with native-like pronunciation',
           'Prepare for Cambridge YLE exams',
           'Interactive games and activities'
-        ],
+        ]),
         reviews: {
           create: {
             name: 'Sarah Johnson',
@@ -70,8 +73,8 @@ async function main() {
     prisma.course.create({
       data: {
         slug: 'english-for-school',
-        title: 'English for School',
-        shortTag: 'Ages 11-17',
+        title: createLocalized('English for School'),
+        shortTag: createLocalized('Ages 11-17'),
         image: '/images/placeholder.svg',
         price: 650000,
         price2: 750000,
@@ -86,23 +89,23 @@ async function main() {
         studentsInGroup2: 6,
         studentsInGroup3: 2,
         certificates: 'School Certificate',
-        ages: '11-17',
+        ages: createLocalized('11-17'),
         rating: 5,
-        overview: "LangArt's English for School follows the Cambridge framework to help students master English with confidence. Confidence in class starts here.",
-        whatYouWillLearn: [
+        overview: createLocalized("LangArt's English for School follows the Cambridge framework to help students master English with confidence. Confidence in class starts here."),
+        whatYouWillLearn: createLocalizedArray([
           'Academic English skills',
           'Essay and report writing',
           'Critical thinking in English',
           'Exam preparation strategies',
           'Group discussions and presentations'
-        ]
+        ])
       }
     }),
     prisma.course.create({
       data: {
         slug: 'general-english',
-        title: 'General English',
-        shortTag: 'All Ages',
+        title: createLocalized('General English'),
+        shortTag: createLocalized('All Ages'),
         image: '/images/placeholder.svg',
         price: 700000,
         price2: 800000,
@@ -117,23 +120,23 @@ async function main() {
         studentsInGroup2: 5,
         studentsInGroup3: 2,
         certificates: 'General English Certificate',
-        ages: '18+',
+        ages: createLocalized('18+'),
         rating: 5,
-        overview: 'Grow your learning with LangArt. Our General English program is designed for adult learners who want to improve their overall English proficiency.',
-        whatYouWillLearn: [
+        overview: createLocalized('Grow your learning with LangArt. Our General English program is designed for adult learners who want to improve their overall English proficiency.'),
+        whatYouWillLearn: createLocalizedArray([
           'Conversational fluency',
           'Grammar and vocabulary expansion',
           'Listening comprehension',
           'Reading skills development',
           'Writing for everyday purposes'
-        ]
+        ])
       }
     }),
     prisma.course.create({
       data: {
         slug: 'english-for-exams',
-        title: 'English for Exams',
-        shortTag: 'IELTS/TOEFL',
+        title: createLocalized('English for Exams'),
+        shortTag: createLocalized('IELTS/TOEFL'),
         image: '/images/placeholder.svg',
         price: 800000,
         price2: 950000,
@@ -148,23 +151,23 @@ async function main() {
         studentsInGroup2: 4,
         studentsInGroup3: 2,
         certificates: 'Exam Preparation Certificate',
-        ages: '16+',
+        ages: createLocalized('16+'),
         rating: 5,
-        overview: "Every lesson moves you closer to your target score. LangArt's English for Exams combines professional teaching and proven strategies to help you achieve top scores in IELTS, TOEFL, and Duolingo.",
-        whatYouWillLearn: [
+        overview: createLocalized("Every lesson moves you closer to your target score. LangArt's English for Exams combines professional teaching and proven strategies to help you achieve top scores in IELTS, TOEFL, and Duolingo."),
+        whatYouWillLearn: createLocalizedArray([
           'IELTS preparation (all 4 modules)',
           'TOEFL test strategies',
           'Duolingo English Test prep',
           'Time management techniques',
           'Mock tests with feedback'
-        ]
+        ])
       }
     }),
     prisma.course.create({
       data: {
         slug: 'business-english',
-        title: 'Business English',
-        shortTag: 'Professional',
+        title: createLocalized('Business English'),
+        shortTag: createLocalized('Professional'),
         image: '/images/placeholder.svg',
         price: 900000,
         price2: 1050000,
@@ -179,16 +182,16 @@ async function main() {
         studentsInGroup2: 3,
         studentsInGroup3: 2,
         certificates: 'Business English Certificate',
-        ages: '20+',
+        ages: createLocalized('20+'),
         rating: 5,
-        overview: "Your edge in global business. LangArt's English for Business Learners equips professionals with expert, practical English skills to succeed in meetings, presentations and international communication.",
-        whatYouWillLearn: [
+        overview: createLocalized("Your edge in global business. LangArt's English for Business Learners equips professionals with expert, practical English skills to succeed in meetings, presentations and international communication."),
+        whatYouWillLearn: createLocalizedArray([
           'Business communication skills',
           'Presentation techniques',
           'Negotiation in English',
           'Business writing (emails, reports)',
           'Industry-specific vocabulary'
-        ]
+        ])
       }
     })
   ]);
@@ -200,61 +203,61 @@ async function main() {
     prisma.instructor.create({
       data: {
         slug: 'john-smith',
-        name: 'John Smith',
+        name: createLocalized('John Smith'),
         image: '/images/instructors/instructor1.png',
         experience: 8,
         students: 450,
-        about: 'John is a certified English teacher with over 8 years of experience teaching students of all ages. He specializes in exam preparation and has helped hundreds of students achieve their target IELTS scores.'
+        about: createLocalized('John is a certified English teacher with over 8 years of experience teaching students of all ages. He specializes in exam preparation and has helped hundreds of students achieve their target IELTS scores.')
       }
     }),
     prisma.instructor.create({
       data: {
         slug: 'emily-johnson',
-        name: 'Emily Johnson',
+        name: createLocalized('Emily Johnson'),
         image: '/images/instructors/instructor2.png',
         experience: 6,
         students: 320,
-        about: 'Emily is passionate about teaching young learners. With her creative teaching methods and engaging activities, she makes learning English fun and effective for children aged 7-12.'
+        about: createLocalized('Emily is passionate about teaching young learners. With her creative teaching methods and engaging activities, she makes learning English fun and effective for children aged 7-12.')
       }
     }),
     prisma.instructor.create({
       data: {
         slug: 'michael-brown',
-        name: 'Michael Brown',
+        name: createLocalized('Michael Brown'),
         image: '/images/instructors/instructor3.png',
         experience: 10,
         students: 580,
-        about: 'Michael brings 10 years of corporate training experience to LangArt. He specializes in Business English and has trained professionals from leading multinational companies.'
+        about: createLocalized('Michael brings 10 years of corporate training experience to LangArt. He specializes in Business English and has trained professionals from leading multinational companies.')
       }
     }),
     prisma.instructor.create({
       data: {
         slug: 'sarah-wilson',
-        name: 'Sarah Wilson',
+        name: createLocalized('Sarah Wilson'),
         image: '/images/instructors/instructor4.png',
         experience: 5,
         students: 280,
-        about: 'Sarah is a dynamic teacher who focuses on conversational English. Her classes are known for their lively discussions and practical real-world scenarios.'
+        about: createLocalized('Sarah is a dynamic teacher who focuses on conversational English. Her classes are known for their lively discussions and practical real-world scenarios.')
       }
     }),
     prisma.instructor.create({
       data: {
         slug: 'david-martinez',
-        name: 'David Martinez',
+        name: createLocalized('David Martinez'),
         image: '/images/instructors/instructor5.png',
         experience: 7,
         students: 390,
-        about: 'David specializes in academic English and school curriculum support. He helps students excel in their school English classes while building a strong foundation for future success.'
+        about: createLocalized('David specializes in academic English and school curriculum support. He helps students excel in their school English classes while building a strong foundation for future success.')
       }
     }),
     prisma.instructor.create({
       data: {
         slug: 'lisa-anderson',
-        name: 'Lisa Anderson',
+        name: createLocalized('Lisa Anderson'),
         image: '/images/instructors/instructor6.png',
         experience: 9,
         students: 500,
-        about: 'Lisa has a background in linguistics and brings a unique perspective to language learning. She is our lead trainer for General English courses.'
+        about: createLocalized('Lisa has a background in linguistics and brings a unique perspective to language learning. She is our lead trainer for General English courses.')
       }
     })
   ]);
@@ -265,41 +268,41 @@ async function main() {
   const testimonials = await Promise.all([
     prisma.testimonial.create({
       data: {
-        name: 'Anjelina Watson',
-        role: 'Student',
+        name: createLocalized('Anjelina Watson'),
+        role: createLocalized('Student'),
         image: '/images/testimonials/user1.png',
-        title: 'Impressive Learning!',
-        content: 'LangArt has transformed my English learning journey. The teachers are incredibly supportive and the learning environment is perfect for growth.',
+        title: createLocalized('Impressive Learning!'),
+        content: createLocalized('LangArt has transformed my English learning journey. The teachers are incredibly supportive and the learning environment is perfect for growth.'),
         rating: 5
       }
     }),
     prisma.testimonial.create({
       data: {
-        name: 'David Alexon',
-        role: 'Business Professional',
+        name: createLocalized('David Alexon'),
+        role: createLocalized('Business Professional'),
         image: '/images/testimonials/user2.png',
-        title: 'Great Instructor!',
-        content: 'The Business English course helped me communicate confidently with international clients. Highly recommend LangArt for professionals.',
+        title: createLocalized('Great Instructor!'),
+        content: createLocalized('The Business English course helped me communicate confidently with international clients. Highly recommend LangArt for professionals.'),
         rating: 5
       }
     }),
     prisma.testimonial.create({
       data: {
-        name: 'Maria Santos',
-        role: 'Parent',
+        name: createLocalized('Maria Santos'),
+        role: createLocalized('Parent'),
         image: '/images/testimonials/user3.png',
-        title: 'Perfect for Kids!',
-        content: 'My children love attending classes at LangArt. The teachers make learning fun and engaging. Great progress in just a few months!',
+        title: createLocalized('Perfect for Kids!'),
+        content: createLocalized('My children love attending classes at LangArt. The teachers make learning fun and engaging. Great progress in just a few months!'),
         rating: 5
       }
     }),
     prisma.testimonial.create({
       data: {
-        name: 'Ahmed Hassan',
-        role: 'IELTS Student',
+        name: createLocalized('Ahmed Hassan'),
+        role: createLocalized('IELTS Student'),
         image: '/images/testimonials/user4.png',
-        title: 'Achieved My Target Score!',
-        content: "Thanks to LangArt's exam preparation course, I achieved my target IELTS score. The strategies and practice tests were invaluable.",
+        title: createLocalized('Achieved My Target Score!'),
+        content: createLocalized("Thanks to LangArt's exam preparation course, I achieved my target IELTS score. The strategies and practice tests were invaluable."),
         rating: 5
       }
     })
@@ -311,16 +314,16 @@ async function main() {
   const pricingPlans = await Promise.all([
     prisma.pricingPlan.create({
       data: {
-        title: 'Young Learners',
+        title: createLocalized('Young Learners'),
         icon: '🎓',
-        ages: '7-10 Years',
-        features: [
+        ages: createLocalized('7-10 Years'),
+        features: createLocalizedArray([
           'Cambridge YLE Framework',
           'Native-level Pronunciation',
           'Interactive Games',
           'Progress Reports',
           'Certificate Upon Completion'
-        ],
+        ]),
         standardMonthly: 590000,
         standardPerLesson: 60000,
         standardStudents: '10-12',
@@ -335,16 +338,16 @@ async function main() {
     }),
     prisma.pricingPlan.create({
       data: {
-        title: 'English for School',
+        title: createLocalized('English for School'),
         icon: '📚',
-        ages: '11-17 Years',
-        features: [
+        ages: createLocalized('11-17 Years'),
+        features: createLocalizedArray([
           'Academic English Skills',
           'Essay & Report Writing',
           'Critical Thinking',
           'Exam Preparation',
           'Group Discussions'
-        ],
+        ]),
         standardMonthly: 650000,
         standardPerLesson: 65000,
         standardStudents: '10-12',
@@ -359,16 +362,16 @@ async function main() {
     }),
     prisma.pricingPlan.create({
       data: {
-        title: 'Exam Preparation',
+        title: createLocalized('Exam Preparation'),
         icon: '🎯',
-        ages: '16+ Years',
-        features: [
+        ages: createLocalized('16+ Years'),
+        features: createLocalizedArray([
           'IELTS Preparation',
           'TOEFL Strategies',
           'Duolingo Test Prep',
           'Mock Tests & Feedback',
           'Time Management'
-        ],
+        ]),
         standardMonthly: 800000,
         standardPerLesson: 85000,
         standardStudents: '6-8',
@@ -383,16 +386,16 @@ async function main() {
     }),
     prisma.pricingPlan.create({
       data: {
-        title: 'Business English',
+        title: createLocalized('Business English'),
         icon: '💼',
-        ages: '20+ Years',
-        features: [
+        ages: createLocalized('20+ Years'),
+        features: createLocalizedArray([
           'Business Communication',
           'Presentation Skills',
           'Negotiation English',
           'Email & Report Writing',
           'Industry Vocabulary'
-        ],
+        ]),
         standardMonthly: 900000,
         standardPerLesson: 95000,
         standardStudents: '4-6',

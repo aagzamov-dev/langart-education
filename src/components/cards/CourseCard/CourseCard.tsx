@@ -4,12 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { FaArrowRight, FaStar, FaCalendarAlt, FaHourglass } from 'react-icons/fa';
+import { useLocale } from 'next-intl';
 import styles from './CourseCard.module.scss';
+import { getLocalizedContent } from '@/utils/localized';
 
 interface CourseCardProps {
     slug: string;
-    title: string;
-    shortTag: string;
+    title: any;
+    shortTag: any;
     image: string;
     price: number;
     duration: number;
@@ -29,6 +31,8 @@ export default function CourseCard({
     rating,
     index = 0,
 }: CourseCardProps) {
+    const locale = useLocale();
+
     return (
         <motion.div
             className={styles.card}
@@ -41,17 +45,17 @@ export default function CourseCard({
             <div className={styles.imageWrapper}>
                 <Image
                     src={image}
-                    alt={title}
+                    alt={getLocalizedContent(title, locale)}
                     width={400}
                     height={250}
                     className={styles.image}
                 />
-                <span className={styles.tag}>{shortTag}</span>
+                <span className={styles.tag}>{getLocalizedContent(shortTag, locale)}</span>
             </div>
 
             <div className={styles.content}>
                 <h4 className={styles.title}>
-                    <Link href={`/courses/${slug}`}>{title}</Link>
+                    <Link href={`/courses/${slug}`}>{getLocalizedContent(title, locale)}</Link>
                 </h4>
 
                 <div className={styles.rating}>

@@ -10,8 +10,8 @@ datasource db {
 model Course {
   id               Int      @id @default(autoincrement())
   slug             String   @unique
-  title            String
-  shortTag         String
+  title            Json
+  shortTag         Json
   image            String
   price            Int
   price2           Int
@@ -26,10 +26,10 @@ model Course {
   studentsInGroup2 Int
   studentsInGroup3 Int
   certificates     String
-  ages             String
+  ages             Json
   rating           Float    @default(5)
-  overview         String   @db.Text
-  whatYouWillLearn String[]
+  overview         Json
+  whatYouWillLearn Json
   reviews          Review[]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -49,22 +49,22 @@ model Review {
 model Instructor {
   id         Int      @id @default(autoincrement())
   slug       String   @unique
-  name       String
+  name       Json
   image      String
   experience Int
   students   Int
-  about      String   @db.Text
+  about      Json
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
 model Testimonial {
   id        Int      @id @default(autoincrement())
-  name      String
-  role      String
+  name      Json
+  role      Json
   image     String
-  title     String
-  content   String   @db.Text
+  title     Json
+  content   Json
   rating    Int      @default(5)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -72,10 +72,10 @@ model Testimonial {
 
 model PricingPlan {
   id                Int      @id @default(autoincrement())
-  title             String
+  title             Json
   icon              String
-  ages              String
-  features          String[]
+  ages              Json
+  features          Json
   standardMonthly   Int
   standardPerLesson Int
   standardStudents  String

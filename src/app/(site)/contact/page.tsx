@@ -3,12 +3,19 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaTelegram, FaInstagram, FaFacebookF } from 'react-icons/fa';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 // import { contactInfo } from '@/data/contact'; // Keeping static as fallback/initial
 import styles from './page.module.scss';
 import { useToast } from '@/components/ui/Toast/ToastContext';
 import { useSiteConfig } from '@/context/SiteConfigContext';
+import { LocalizedContent } from '@/types/admin';
+
+interface Course {
+    id: number;
+    title: LocalizedContent | string; // Handle both legacy string and new Json
+    slug: string;
+}
 
 // Basic email validation
 const isValidEmail = (email: string) => {
@@ -19,6 +26,7 @@ export default function ContactPage() {
     const t = useTranslations('contact');
     const tNav = useTranslations('nav');
     const tCommon = useTranslations('common');
+    const locale = useLocale();
     const { showToast } = useToast();
     const config = useSiteConfig();
 
@@ -32,8 +40,32 @@ export default function ContactPage() {
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    // State for dynamic contact info could go here if we fetch it on client side
-    // For now, using static import as placeholder or if we switch to Context for SiteConfig
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [loadingCourses, setLoadingCourses] = useState(true);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const res = await fetch('/api/courses');
+                if (!res.ok) throw new Error('Failed to fetch');
+                const data = await res.json();
+
+                if (Array.isArray(data)) {
+                    setCourses(data);
+                } else {
+                    console.error('API returned non-array data:', data);
+                    setCourses([]);
+                }
+            } catch (err) {
+                console.error('Failed to fetch courses:', err);
+                setCourses([]);
+            } finally {
+                setLoadingCourses(false);
+            }
+        };
+
+        fetchCourses();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -82,6 +114,12 @@ export default function ContactPage() {
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const getCourseTitle = (course: Course) => {
+        if (typeof course.title === 'string') return course.title;
+        // @ts-ignore
+        return course.title?.[locale] || course.title?.['en'] || 'Course';
     };
 
     return (
@@ -222,13 +260,13 @@ export default function ContactPage() {
 
                                 <div className={styles.formRow}>
                                     <div className={styles.formGroup}>
-                                        <select name="course" value={formData.course} onChange={handleChange} disabled={isSubmitting}>
+                                        <select name="course" value={formData.course} onChange={handleChange} disabled={isSubmitting || loadingCourses}>
                                             <option value="">{t('selectCourse')}</option>
-                                            <option value="young-learners">{t('youngLearners')}</option>
-                                            <option value="school">{t('schoolEnglish')}</option>
-                                            <option value="general">{t('generalEnglish')}</option>
-                                            <option value="exam">{t('examPrep')}</option>
-                                            <option value="business">{t('businessEnglish')}</option>
+                                            {courses.map(course => (
+                                                <option key={course.id} value={course.title && typeof course.title === 'string' ? course.title : (course.title as any)?.['en'] || course.slug}>
+                                                    {getCourseTitle(course)}
+                                                </option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className={styles.formGroup}>

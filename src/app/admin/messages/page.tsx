@@ -34,10 +34,19 @@ export default function MessagesPage() {
             const res = await fetch('/api/admin/submissions');
             if (res.ok) {
                 const data = await res.json();
-                setSubmissions(data);
+                if (Array.isArray(data)) {
+                    setSubmissions(data);
+                } else {
+                    console.error('API returned invalid format:', data);
+                    setSubmissions([]);
+                }
+            } else {
+                console.error('Failed to fetch submissions:', res.statusText);
+                setSubmissions([]);
             }
         } catch (error) {
             console.error('Failed to fetch submissions', error);
+            setSubmissions([]);
         } finally {
             setIsLoading(false);
         }

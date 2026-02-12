@@ -18,7 +18,7 @@ export async function POST(request: Request) {
                 title: data.title,
                 icon: data.icon,
                 ages: data.ages,
-                features: data.features || [],
+                features: data.features || {},
                 standardMonthly: data.standardMonthly,
                 standardPerLesson: data.standardPerLesson,
                 standardStudents: data.standardStudents,

@@ -1,17 +1,19 @@
 import { FaCheck, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
+import { getLocale } from 'next-intl/server';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import { getPricingPlans } from '@/lib/api';
 import styles from './page.module.scss';
+import { getLocalizedContent } from '@/utils/localized';
 
 export const revalidate = 86400; // 24 hours
 
 interface PricingPlan {
     id: number;
-    title: string;
+    title: any;
     icon: string;
-    ages: string;
-    features: string[];
+    ages: any;
+    features: any;
     standardMonthly: number;
     standardPerLesson: number;
     standardStudents: string;
@@ -25,6 +27,13 @@ interface PricingPlan {
 
 export default async function PricingPage() {
     const plans = await getPricingPlans() as PricingPlan[];
+    const locale = await getLocale();
+
+    const getFeatures = (features: any): string[] => {
+        if (Array.isArray(features)) return features;
+        if (!features) return [];
+        return features[locale] || features['en'] || [];
+    };
 
     return (
         <>
@@ -48,12 +57,12 @@ export default async function PricingPage() {
                             <div key={plan.id} className={styles.card}>
                                 <div className={styles.cardHeader}>
                                     <span className={styles.planIcon}>{plan.icon}</span>
-                                    <h3>{plan.title}</h3>
-                                    <span className={styles.ages}>{plan.ages}</span>
+                                    <h3>{getLocalizedContent(plan.title, locale)}</h3>
+                                    <span className={styles.ages}>{getLocalizedContent(plan.ages, locale)}</span>
                                 </div>
 
                                 <ul className={styles.features}>
-                                    {plan.features.map((feature, i) => (
+                                    {getFeatures(plan.features).map((feature, i) => (
                                         <li key={i}>
                                             <FaCheck className={styles.checkIcon} />
                                             {feature}

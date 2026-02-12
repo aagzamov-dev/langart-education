@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import { useLocale } from 'next-intl';
 import styles from './InstructorCard.module.scss';
+import { getLocalizedContent } from '@/utils/localized';
 
 interface InstructorCardProps {
     slug: string;
-    name: string;
+    name: any;
     image: string;
     index?: number;
 }
@@ -20,6 +22,7 @@ export default function InstructorCard({
     image,
     index = 0,
 }: InstructorCardProps) {
+    const locale = useLocale();
     const colorClass = colorClasses[index % colorClasses.length];
 
     return (
@@ -35,14 +38,14 @@ export default function InstructorCard({
                 <div className={styles.imageWrapper}>
                     <Image
                         src={image}
-                        alt={name}
+                        alt={getLocalizedContent(name, locale)}
                         width={300}
                         height={350}
                         className={styles.image}
                     />
                 </div>
                 <div className={styles.content}>
-                    <h4 className={styles.name}>{name}</h4>
+                    <h4 className={styles.name}>{getLocalizedContent(name, locale)}</h4>
                 </div>
             </Link>
         </motion.div>

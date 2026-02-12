@@ -3,25 +3,37 @@
 import { motion } from 'motion/react';
 import { FaStar, FaQuoteLeft } from 'react-icons/fa';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import styles from './TestimonialSection.module.scss';
+import { LocalizedContent } from '@/types/admin';
 
 interface Testimonial {
     id: number;
-    name: string;
-    role: string;
+    name: LocalizedContent | string;
+    role: LocalizedContent | string;
     image: string;
-    title: string;
-    content: string;
+    title: LocalizedContent | string;
+    content: LocalizedContent | string;
     rating: number;
 }
 
 interface TestimonialSectionProps {
-    testimonials: Testimonial[];
+    testimonials: Testimonial[] | { testimonials: Testimonial[] };
 }
 
 export default function TestimonialSection({ testimonials }: TestimonialSectionProps) {
     const t = useTranslations('testimonials');
+    const locale = useLocale();
+    const items = Array.isArray(testimonials) ? testimonials : (testimonials as any)?.testimonials || [];
+
+    // Helper to safely render localized content
+    const renderContent = (content: any) => {
+        if (!content) return '';
+        if (typeof content === 'string') return content;
+
+        // Try to get content for current locale, fallback to english, then others
+        return content[locale] || content['en'] || content['uz'] || content['ru'] || '';
+    };
 
     return (
         <section className={styles.testimonials}>
@@ -40,7 +52,7 @@ export default function TestimonialSection({ testimonials }: TestimonialSectionP
                 </motion.div>
 
                 <div className={styles.grid}>
-                    {testimonials.map((testimonial, index) => (
+                    {items.map((testimonial: Testimonial, index: number) => (
                         <motion.div
                             key={testimonial.id}
                             className={styles.card}
@@ -50,8 +62,9 @@ export default function TestimonialSection({ testimonials }: TestimonialSectionP
                             transition={{ delay: index * 0.1 }}
                         >
                             <FaQuoteLeft className={styles.quoteIcon} />
-                            <h4 className={styles.title}>{testimonial.title}</h4>
-                            <p className={styles.content}>{testimonial.content}</p>
+
+                            <h4 className={styles.title}>{renderContent(testimonial.title)}</h4>
+                            <p className={styles.content}>{renderContent(testimonial.content)}</p>
 
                             <div className={styles.rating}>
                                 {[...Array(5)].map((_, i) => (
@@ -63,16 +76,18 @@ export default function TestimonialSection({ testimonials }: TestimonialSectionP
                             </div>
 
                             <div className={styles.author}>
-                                <Image
-                                    src={testimonial.image}
-                                    alt={testimonial.name}
-                                    width={60}
-                                    height={60}
-                                    className={styles.authorImage}
-                                />
+                                <div className={styles.authorImageWrapper}>
+                                    <Image
+                                        src={testimonial.image}
+                                        alt={renderContent(testimonial.name)}
+                                        width={60}
+                                        height={60}
+                                        className={styles.authorImage}
+                                    />
+                                </div>
                                 <div className={styles.authorInfo}>
-                                    <h5>{testimonial.name}</h5>
-                                    <p>{testimonial.role}</p>
+                                    <h5>{renderContent(testimonial.name)}</h5>
+                                    <p>{renderContent(testimonial.role)}</p>
                                 </div>
                             </div>
                         </motion.div>
