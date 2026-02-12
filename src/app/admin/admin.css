@@ -244,6 +244,7 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    backdrop-filter: blur(4px);
 }
 
 .modal {
@@ -254,6 +255,7 @@ body {
     max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .modalHeader {
@@ -262,9 +264,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--admin-bg-secondary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.modalTitle { font-size: 1.25rem; font-weight: 600; }
+.modalTitle { font-size: 1.25rem; font-weight: 600; color: var(--admin-text); }
 
 .modalClose {
     background: none;
@@ -272,8 +278,11 @@ body {
     color: var(--admin-text-muted);
     font-size: 1.5rem;
     cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s;
 }
-.modalClose:hover { color: var(--admin-text); }
+.modalClose:hover { color: var(--admin-text); background: var(--admin-bg-tertiary); }
 
 .modalBody { padding: 1.5rem; }
 
@@ -283,6 +292,10 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 0.75rem;
+    background: var(--admin-bg-secondary);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
 /* Form */
@@ -353,4 +366,62 @@ body {
     justify-content: center;
     padding: 3rem;
     color: var(--admin-text-muted);
+}
+
+/* Enhanced Form Elements */
+.formSectionTitle {
+    color: var(--admin-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.inputGroup {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+}
+
+.inputGroup .formInput {
+    flex: 1;
+    width: auto;
+}
+
+/* Language Tabs Custom Design */
+.languageTabs {
+    display: flex;
+    background: var(--admin-bg-tertiary);
+    padding: 0.25rem;
+    border-radius: var(--admin-radius);
+    border: 1px solid var(--admin-border);
+    margin-bottom: 1.5rem;
+}
+
+.tabBtn {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: transparent;
+    color: var(--admin-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.tabBtn:hover {
+    color: var(--admin-text);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tabBtn.active {
+    background: var(--admin-primary);
+    color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }

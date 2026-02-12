@@ -298,7 +298,7 @@ export default function CoursesAdmin() {
                                     <div className="formGroup">
                                         <label className="formLabel">What You Will Learn ({activeTab.toUpperCase()})</label>
                                         {form.whatYouWillLearn[activeTab].map((item, i) => (
-                                            <div key={i} className="flex gap-2 mb-2">
+                                            <div key={i} className="inputGroup mb-2" style={{ marginBottom: '8px' }}>
                                                 <input
                                                     className="formInput"
                                                     value={item}
@@ -311,8 +311,7 @@ export default function CoursesAdmin() {
                                         <button className="btn btnSecondary" onClick={addLearnPoint}>+ Add Point</button>
                                     </div>
 
-                                    <hr className="my-6 border-gray-200 dark:border-gray-700" />
-                                    <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Common Settings</h3>
+                                    <h3 className="formSectionTitle">Common Settings</h3>
 
                                     <div className="formRow">
                                         <div className="formGroup">
