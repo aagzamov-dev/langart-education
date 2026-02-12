@@ -37,6 +37,7 @@ const emptyForm: TestimonialForm = {
 export default function TestimonialsAdmin() {
     const [items, setItems] = useState<Testimonial[]>([]);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
     const [editId, setEditId] = useState<number | null>(null);
@@ -84,11 +85,18 @@ export default function TestimonialsAdmin() {
 
     const handleSubmit = async () => {
         if (!validate()) return;
+        setSubmitting(true);
         const method = editId ? 'PUT' : 'POST';
         const url = editId ? `/api/testimonials/${editId}` : '/api/testimonials';
-        await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-        setModalOpen(false);
-        fetchItems();
+        try {
+            await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
+            setModalOpen(false);
+            fetchItems();
+        } catch (error) {
+            console.error('Failed to submit form', error);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const handleDelete = async (id: number) => {
@@ -141,11 +149,11 @@ export default function TestimonialsAdmin() {
             </div>
 
             {modalOpen && (
-                <div className="modalOverlay" onClick={() => setModalOpen(false)}>
+                <div className="modalOverlay" onClick={() => !submitting && setModalOpen(false)}>
                     <div className="modal" onClick={e => e.stopPropagation()}>
                         <div className="modalHeader">
                             <h2 className="modalTitle">{editId ? 'Edit' : 'Add'} Testimonial</h2>
-                            <button className="modalClose" onClick={() => setModalOpen(false)}><FaTimes /></button>
+                            <button className="modalClose" onClick={() => !submitting && setModalOpen(false)} disabled={submitting}><FaTimes /></button>
                         </div>
                         <div className="modalBody">
                             {modalLoading ? (
@@ -194,8 +202,7 @@ export default function TestimonialsAdmin() {
                                         {activeTab === 'en' && errors.content && <p className="formError">{errors.content}</p>}
                                     </div>
 
-                                    <hr className="my-6 border-gray-200 dark:border-gray-700" />
-                                    <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Common Settings</h3>
+                                    <h3 className="formSectionTitle">Common Settings</h3>
 
                                     <div className="formGroup">
                                         <label className="formLabel">Rating</label>
@@ -207,8 +214,10 @@ export default function TestimonialsAdmin() {
                             )}
                         </div>
                         <div className="modalFooter">
-                            <button className="btn btnSecondary" onClick={() => setModalOpen(false)}>Cancel</button>
-                            <button className="btn btnPrimary" onClick={handleSubmit}>{editId ? 'Update' : 'Create'}</button>
+                            <button className="btn btnSecondary" onClick={() => setModalOpen(false)} disabled={submitting}>Cancel</button>
+                            <button className="btn btnPrimary" onClick={handleSubmit} disabled={submitting}>
+                                {submitting ? 'Saving...' : (editId ? 'Update' : 'Create')}
+                            </button>
                         </div>
                     </div>
                 </div>

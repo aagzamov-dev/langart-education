@@ -47,6 +47,7 @@ const emptyForm: PricingForm = {
 export default function PricingAdmin() {
     const [items, setItems] = useState<PricingPlan[]>([]);
     const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalLoading, setModalLoading] = useState(false);
     const [editId, setEditId] = useState<number | null>(null);
@@ -100,6 +101,7 @@ export default function PricingAdmin() {
 
     const handleSubmit = async () => {
         if (!validate()) return;
+        setSubmitting(true);
         const method = editId ? 'PUT' : 'POST';
         const url = editId ? `/api/pricing/${editId}` : '/api/pricing';
 
@@ -112,9 +114,15 @@ export default function PricingAdmin() {
             }
         };
 
-        await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanForm) });
-        setModalOpen(false);
-        fetchItems();
+        try {
+            await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cleanForm) });
+            setModalOpen(false);
+            fetchItems();
+        } catch (error) {
+            console.error('Failed to submit form', error);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     const handleDelete = async (id: number) => {
@@ -201,11 +209,11 @@ export default function PricingAdmin() {
             </div>
 
             {modalOpen && (
-                <div className="modalOverlay" onClick={() => setModalOpen(false)}>
+                <div className="modalOverlay" onClick={() => !submitting && setModalOpen(false)}>
                     <div className="modal" onClick={e => e.stopPropagation()}>
                         <div className="modalHeader">
                             <h2 className="modalTitle">{editId ? 'Edit' : 'Add'} Pricing Plan</h2>
-                            <button className="modalClose" onClick={() => setModalOpen(false)}><FaTimes /></button>
+                            <button className="modalClose" onClick={() => !submitting && setModalOpen(false)} disabled={submitting}><FaTimes /></button>
                         </div>
                         <div className="modalBody">
                             {modalLoading ? (
@@ -243,7 +251,7 @@ export default function PricingAdmin() {
                                     <div className="formGroup">
                                         <label className="formLabel">Features ({activeTab.toUpperCase()})</label>
                                         {form.features[activeTab].map((f, i) => (
-                                            <div key={i} className="flex gap-2 mb-2">
+                                            <div key={i} className="inputGroup mb-2" style={{ marginBottom: '8px' }}>
                                                 <input
                                                     className="formInput"
                                                     value={f}
@@ -255,8 +263,7 @@ export default function PricingAdmin() {
                                         <button className="btn btnSecondary" onClick={addFeature}>+ Add Feature</button>
                                     </div>
 
-                                    <hr className="my-6 border-gray-200 dark:border-gray-700" />
-                                    <h3 className="text-lg font-semibold mb-4 text-gray-700 dark:text-gray-200">Common Settings</h3>
+                                    <h3 className="formSectionTitle">Common Settings</h3>
 
                                     <div className="formRow">
                                         <div className="formGroup"><label className="formLabel">Order</label><input type="number" className="formInput" value={form.order} onChange={e => setForm({ ...form, order: +e.target.value })} /></div>
@@ -283,8 +290,10 @@ export default function PricingAdmin() {
                             )}
                         </div>
                         <div className="modalFooter">
-                            <button className="btn btnSecondary" onClick={() => setModalOpen(false)}>Cancel</button>
-                            <button className="btn btnPrimary" onClick={handleSubmit}>{editId ? 'Update' : 'Create'}</button>
+                            <button className="btn btnSecondary" onClick={() => setModalOpen(false)} disabled={submitting}>Cancel</button>
+                            <button className="btn btnPrimary" onClick={handleSubmit} disabled={submitting}>
+                                {submitting ? 'Saving...' : (editId ? 'Update' : 'Create')}
+                            </button>
                         </div>
                     </div>
                 </div>
