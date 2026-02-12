@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
-const createLocalized = (text: string) => ({ en: text, ru: text, uz: text });
-const createLocalizedArray = (texts: string[]) => ({ en: texts, ru: texts, uz: texts });
+const createLocalized = (text: string):any => ({ en: text, ru: text, uz: text });
+const createLocalizedArray = (texts: string[]):any => ({ en: texts, ru: texts, uz: texts });
 
 async function main() {
   console.log('🌱 Seeding database...');
